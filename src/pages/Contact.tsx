@@ -62,6 +62,15 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* Banner image */}
+      <section style={{ padding: "0 24px", maxWidth: 800, margin: "0 auto 64px" }}>
+        <img
+          src="/images/massimo-11.jpg"
+          alt="Massimo Paparello"
+          style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", borderRadius: 12, display: "block" }}
+        />
+      </section>
+
       {/* Contact rows */}
       <section style={{ padding: "0 24px 80px", maxWidth: 800, margin: "0 auto" }}>
         <p style={{ ...s.label, marginBottom: 32 }}>Booking & Management</p>
