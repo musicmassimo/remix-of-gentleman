@@ -16,8 +16,8 @@ const Booking = () => (
           </h1>
           <p className="text-muted-foreground text-sm leading-relaxed">
             For all booking inquiries, please contact{" "}
-            <a href="mailto:bookings@lunawaves.com" className="text-foreground/70 underline underline-offset-2 hover:text-foreground transition-colors">
-              bookings@lunawaves.com
+            <a href="mailto:bookings@massimopaparello.com" className="text-foreground/70 underline underline-offset-2 hover:text-foreground transition-colors">
+              bookings@massimopaparello.com
             </a>
           </p>
         </div>
