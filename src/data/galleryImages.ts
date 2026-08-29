@@ -1,81 +1,57 @@
 import type { MediaItem } from "@/components/ui/infinite-gallery"
 
-// Photos by @chriscreations__ on Unsplash
-// Aspect ratios estimated as portrait (3:4)
+import heroAsset from "@/assets/massimo-hero.jpg.asset.json"
+import portraitAsset from "@/assets/massimo-portrait.jpg.asset.json"
+
+const HERO = heroAsset.url
+const PORTRAIT = portraitAsset.url
+
+// Photos of Massimo Paparello
 export const galleryImages: MediaItem[] = [
   {
-    // Key photo - man in suit with hands on face (first in gallery, last in intro)
-    src: "https://images.unsplash.com/photo-1766939228519-5f498be33e65?w=1600&q=80",
-    width: 3,
-    height: 4,
-    alt: "Man in suit with hands on face",
+    src: HERO,
+    width: 4,
+    height: 3,
+    alt: "Massimo Paparello holding a trumpet and a flugelhorn against a brick wall",
   },
   {
-    src: "https://images.unsplash.com/photo-1766939229108-eeeebe838be1?w=1600&q=80",
+    src: PORTRAIT,
     width: 3,
     height: 4,
-    alt: "Young man in suit sitting against red background",
+    alt: "Massimo Paparello walking with his trumpet at his side",
   },
   {
-    src: "https://images.unsplash.com/photo-1766939228707-d9b36da3ab06?w=1600&q=80",
-    width: 3,
-    height: 4,
-    alt: "Young man in suit with arms crossed looking forward",
+    src: HERO,
+    width: 4,
+    height: 3,
+    alt: "Massimo Paparello with two horns in front of a red brick wall",
   },
   {
-    src: "https://images.unsplash.com/photo-1766939228800-930ab56f16f9?w=1600&q=80",
+    src: PORTRAIT,
     width: 3,
     height: 4,
-    alt: "Man in suit with patterned tie and rings",
+    alt: "Detail of Massimo Paparello carrying his brass trumpet",
   },
   {
-    src: "https://images.unsplash.com/photo-1766939228418-1100778fb1fe?w=1600&q=80",
-    width: 3,
-    height: 4,
-    alt: "Young man in suit with braided hair",
+    src: HERO,
+    width: 4,
+    height: 3,
+    alt: "Massimo Paparello portrait with trumpet and flugelhorn",
   },
   {
-    src: "https://images.unsplash.com/photo-1766939228746-c0acc10344e4?w=1600&q=80",
+    src: PORTRAIT,
     width: 3,
     height: 4,
-    alt: "Man in a suit sits against a red background",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1766939228501-065717002601?w=1600&q=80",
-    width: 3,
-    height: 4,
-    alt: "Man with braided hair wearing a suit",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1766939228554-77d3c914639a?w=1600&q=80",
-    width: 3,
-    height: 4,
-    alt: "Man with braided hair in a suit posing",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1766939228598-e8d73e87ec01?w=1600&q=80",
-    width: 3,
-    height: 4,
-    alt: "Man in suit with braids and rings reaching forward",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1766939228669-999a8509630b?w=1600&q=80",
-    width: 3,
-    height: 4,
-    alt: "Young man in suit covers eyes with hands",
+    alt: "Massimo Paparello in profile with trumpet in hand",
   },
 ]
 
 // Images used during the intro sequence (cycling animation)
 // Final image matches first gallery image for seamless transition
 export const introImages: string[] = [
-  "https://images.unsplash.com/photo-1766939228707-d9b36da3ab06?w=1600&q=80",
-  "https://images.unsplash.com/photo-1766939228418-1100778fb1fe?w=1600&q=80",
-  "https://images.unsplash.com/photo-1766939228501-065717002601?w=1600&q=80",
-  "https://images.unsplash.com/photo-1766939228598-e8d73e87ec01?w=1600&q=80",
-  "https://images.unsplash.com/photo-1766939229108-eeeebe838be1?w=1600&q=80",
-  "https://images.unsplash.com/photo-1766939228746-c0acc10344e4?w=1600&q=80",
-  "https://images.unsplash.com/photo-1766939228669-999a8509630b?w=1600&q=80",
+  PORTRAIT,
+  HERO,
+  PORTRAIT,
   // Key photo - final intro image, first in gallery
-  "https://images.unsplash.com/photo-1766939228519-5f498be33e65?w=1600&q=80",
+  HERO,
 ]
