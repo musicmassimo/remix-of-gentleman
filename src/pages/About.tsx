@@ -1,5 +1,6 @@
 import TopNav from "@/components/TopNav";
-const portraitImg = "https://images.unsplash.com/photo-1766939228519-5f498be33e65?w=1600&q=80";
+import portraitAsset from "@/assets/massimo-portrait.jpg.asset.json";
+const portraitImg = portraitAsset.url;
 
 const milestones = [
   { year: "2016", text: "First gig at a dimly lit lounge in the city. Played a two-hour set of deep house to a room that didn't want to leave." },
