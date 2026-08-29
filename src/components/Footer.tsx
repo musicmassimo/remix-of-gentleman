@@ -16,7 +16,7 @@ const Footer = () => (
       {/* Artist */}
       <div className="text-center md:text-left">
         <h4 className="text-[10px] font-medium mb-4 tracking-[0.35em] uppercase text-primary-foreground/40">
-          Follow Gentleman
+          Follow Massimo Paparello
         </h4>
         <div className="flex gap-1 justify-center md:justify-start">
           <SocialIcon href="#" label="YouTube"><Youtube size={16} /></SocialIcon>
