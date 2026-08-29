@@ -41,11 +41,7 @@ const Index = () => {
       {isIntroComplete && <TopNav />}
 
       {/* Center text overlay */}
-      <CenterText
-        leftText="THE"
-        rightText="MASSIMO PAPARELLO"
-        visible={isIntroComplete}
-      />
+      <CenterText rightText="MASSIMO PAPARELLO" visible={isIntroComplete} />
 
       {/* Intro cycling images */}
       {phase === "intro" && <IntroOverlay imageSrc={currentImageSrc} />}
