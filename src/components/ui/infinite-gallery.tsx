@@ -6,6 +6,7 @@ export interface MediaItem {
   width: number
   height: number
   alt?: string
+  objectPosition?: string
 }
 
 interface InfiniteGalleryProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -142,10 +143,11 @@ const InfiniteGallery = React.forwardRef<HTMLDivElement, InfiniteGalleryProps>(
                 className="relative h-full flex-shrink-0"
                 style={{ width }}
               >
-                <img
+                             <img
                   src={item.src}
                   alt={item.alt ?? ""}
                   className="h-full w-full object-cover"
+                  style={{ objectPosition: item.objectPosition ?? "center" }}
                   loading="lazy"
                   decoding="async"
                   draggable={false}
