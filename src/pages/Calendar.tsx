@@ -71,7 +71,7 @@ const Calendar = () => {
 
       {/* Footer */}
       <footer className="py-12 text-center relative z-10" style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", letterSpacing: "0.2em" }}>
-        © 2026 GENTLEMAN
+        © 2026 MASSIMO PAPARELLO
       </footer>
     </main>
   );

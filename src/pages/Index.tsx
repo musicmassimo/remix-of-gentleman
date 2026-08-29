@@ -43,7 +43,7 @@ const Index = () => {
       {/* Center text overlay */}
       <CenterText
         leftText="THE"
-        rightText="GENTLEMAN"
+        rightText="MASSIMO PAPARELLO"
         visible={isIntroComplete}
       />
 

@@ -2,14 +2,14 @@ import { useState } from "react";
 import TopNav from "@/components/TopNav";
 
 const contacts = [
-  { label: "General Bookings", value: "bookings@gentleman.live", href: "mailto:bookings@gentleman.live" },
-  { label: "Press & Media", value: "press@gentleman.live", href: "mailto:press@gentleman.live" },
+  { label: "General Bookings", value: "bookings@massimopaparello.com", href: "mailto:bookings@massimopaparello.com" },
+  { label: "Press & Media", value: "press@massimopaparello.com", href: "mailto:press@massimopaparello.com" },
   { label: "The Velvet Hour", value: "events@thevelvethour.live", href: "mailto:events@thevelvethour.live" },
   { label: "Based in", value: "Metro City" },
 ];
 
 const socials = [
-  { label: "Instagram", handle: "@gentleman" },
+  { label: "Instagram", handle: "@massimopaparello" },
   { label: "YouTube", handle: "Massimo Paparello Music" },
   { label: "Facebook", handle: "massimopaparello" },
   { label: "Spotify", handle: "Massimo Paparello" },
