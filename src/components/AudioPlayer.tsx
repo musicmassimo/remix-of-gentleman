@@ -36,7 +36,7 @@ const AudioPlayer = ({ title, index }: AudioPlayerProps) => {
     audioRef.current.currentTime = ratio * (audioRef.current.duration || 0);
   };
 
-  // Parse title parts: "Gentleman ° The Velvet Hour ° Jan 2026"
+  // Parse title parts: "Massimo Paparello ° The Velvet Hour ° Jan 2026"
   const parts = title.split(" ° ");
   const label = parts[1] || title;
   const date = parts[2] || "";
