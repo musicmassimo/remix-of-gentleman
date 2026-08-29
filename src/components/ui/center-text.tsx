@@ -2,7 +2,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 interface CenterTextProps extends React.HTMLAttributes<HTMLDivElement> {
-  leftText: string
+  leftText?: string
   rightText: string
   visible?: boolean
 }
@@ -19,15 +19,22 @@ const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
       )}
       {...props}
     >
-      <div className="flex justify-between text-xl md:text-2xl font-medium">
-        <span
-          className={cn(
-            "whitespace-nowrap transition-opacity duration-700 ease-out",
-            visible ? "opacity-100" : "opacity-0"
-          )}
-        >
-          {leftText}
-        </span>
+      <div
+        className={cn(
+          "flex text-xl md:text-2xl font-medium",
+          leftText ? "justify-between" : "justify-center"
+        )}
+      >
+        {leftText && (
+          <span
+            className={cn(
+              "whitespace-nowrap transition-opacity duration-700 ease-out",
+              visible ? "opacity-100" : "opacity-0"
+            )}
+          >
+            {leftText}
+          </span>
+        )}
         <span
           className={cn(
             "whitespace-nowrap transition-opacity duration-700 ease-out delay-100",
