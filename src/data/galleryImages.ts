@@ -55,6 +55,7 @@ export const galleryImages: MediaItem[] = [
     width: 4,
     height: 5,
     alt: "Massimo Paparello",
+    objectPosition: "20% center",
   },
 ]
 
