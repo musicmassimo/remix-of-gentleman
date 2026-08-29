@@ -45,12 +45,6 @@ export const galleryImages: MediaItem[] = [
     alt: "Massimo Paparello",
   },
   {
-    src: "/images/massimo-08.jpg",
-    width: 4,
-    height: 5,
-    alt: "Massimo Paparello",
-  },
-  {
     src: "/images/massimo-09.jpg",
     width: 4,
     height: 5,
@@ -68,7 +62,7 @@ export const galleryImages: MediaItem[] = [
 // Final image matches first gallery image for seamless transition
 export const introImages: string[] = [
   "/images/massimo-05.jpg",
-  "/images/massimo-08.jpg",
+  "/images/massimo-09.jpg",
   "/images/massimo-03.jpg",
   // Key photo - final intro image, first in gallery
   "/images/massimo-01.jpg",
