@@ -25,11 +25,11 @@ export const tourDates: TourDate[] = [
 ];
 
 export const recordings = [
-  "Gentleman ° The Velvet Hour ° Jan 2026",
-  "Gentleman ° YEARMIX ° 2025",
-  "Gentleman ° The Velvet Hour 159 ° Dec 2025",
-  "Gentleman ° The Velvet Hour 158 ° Nov 2025",
-  "Gentleman ° Live Velvet Hour Recording ° July 2025",
-  "Gentleman ° Live at Frequency ADE ° Oct 2024",
-  "Gentleman ° Live at Midnight Club Berlin ° March 2024",
+  "Massimo Paparello ° The Velvet Hour ° Jan 2026",
+  "Massimo Paparello ° YEARMIX ° 2025",
+  "Massimo Paparello ° The Velvet Hour 159 ° Dec 2025",
+  "Massimo Paparello ° The Velvet Hour 158 ° Nov 2025",
+  "Massimo Paparello ° Live Velvet Hour Recording ° July 2025",
+  "Massimo Paparello ° Live at Frequency ADE ° Oct 2024",
+  "Massimo Paparello ° Live at Midnight Club Berlin ° March 2024",
 ];

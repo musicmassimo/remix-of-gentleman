@@ -30,7 +30,7 @@ const releases: Release[] = [
     year: "2025",
     type: "Compilation",
     tracks: [
-      "Opening Ceremony (Gentleman Edit)",
+      "Opening Ceremony (Massimo Paparello Edit)",
       "Tidal Lock",
       "Refraction feat. Aura",
       "Night Protocol",

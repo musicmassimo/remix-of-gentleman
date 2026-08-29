@@ -14,7 +14,7 @@ const milestones = [
 ];
 
 const bioLines = [
-  "Gentleman makes music for rooms that remember. His sound lives at the intersection of deep house warmth and progressive elegance — built from late-night atmospheres and an obsession with the perfect groove.",
+  "Massimo Paparello makes music for rooms that remember. His sound lives at the intersection of deep house warmth and progressive elegance — built from late-night atmospheres and an obsession with the perfect groove.",
   "Growing up between cities, he found his voice in borrowed spaces — borrowed decks, borrowed studios, borrowed time. His earliest mixes were recorded on a laptop with headphones on, layering tracks until the bedroom felt like a whole club.",
   "His live sets are known for their tension — the way he builds a room, makes the audience lean in. Whether playing intimate lounges or festival stages, every set feels like a journey.",
   "With releases on Afterglow Records, Midnight Structures, and Balance Music, he has performed across North America, Europe, and Japan — always playing rooms that feel right even as the rooms get bigger.",
@@ -50,7 +50,7 @@ const About = () => (
     <section style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
       <img
         src={portraitImg}
-        alt="Gentleman"
+        alt="Massimo Paparello"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
       />
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #000 0%, transparent 50%)" }} />
@@ -99,7 +99,7 @@ const About = () => (
 
     {/* Footer */}
     <footer style={{ padding: "40px 24px", textAlign: "center", ...s.footer }}>
-      © 2026 Gentleman. All rights reserved.
+      © 2026 Massimo Paparello. All rights reserved.
     </footer>
   </main>
 );

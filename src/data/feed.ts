@@ -9,19 +9,19 @@ export interface FeedItem {
 }
 
 export const feedChannel = {
-  title: "Gentleman",
-  link: "https://www.gentleman.live",
-  feedUrl: "https://www.gentleman.live/feed/",
-  description: "News, tour updates, and new music from Gentleman",
+  title: "Massimo Paparello",
+  link: "https://www.massimopaparello.com",
+  feedUrl: "https://www.massimopaparello.com/feed/",
+  description: "News, tour updates, and new music from Massimo Paparello",
   lastBuildDate: "Mon, 27 Jan 2026 10:15:00 +0000",
   language: "en",
   updatePeriod: "weekly",
   updateFrequency: 1,
-  generator: "Gentleman CMS v2.1",
+  generator: "Massimo Paparello CMS v2.1",
   image: {
     url: "/favicon.ico",
-    title: "Gentleman",
-    link: "https://www.gentleman.live",
+    title: "Massimo Paparello",
+    link: "https://www.massimopaparello.com",
     width: 32,
     height: 32,
   },
@@ -30,8 +30,8 @@ export const feedChannel = {
 export const feedItems: FeedItem[] = [
   {
     title: "Infinite Drift EP — Out Now",
-    link: "https://www.gentleman.live/blog/2026/01/infinite-drift-ep-out-now/",
-    author: "Gentleman",
+    link: "https://www.massimopaparello.com/blog/2026/01/infinite-drift-ep-out-now/",
+    author: "Massimo Paparello",
     pubDate: "Mon, 27 Jan 2026 10:00:00 +0000",
     category: "Releases",
     description:
@@ -41,8 +41,8 @@ export const feedItems: FeedItem[] = [
   },
   {
     title: "2026 Tour Dates Announced",
-    link: "https://www.gentleman.live/blog/2025/12/2026-tour-dates/",
-    author: "Gentleman",
+    link: "https://www.massimopaparello.com/blog/2025/12/2026-tour-dates/",
+    author: "Massimo Paparello",
     pubDate: "Fri, 19 Dec 2025 14:30:00 +0000",
     category: "Tour",
     description:
@@ -52,8 +52,8 @@ export const feedItems: FeedItem[] = [
   },
   {
     title: "YEARMIX 2025 — Listen Now",
-    link: "https://www.gentleman.live/blog/2025/12/yearmix-2025/",
-    author: "Gentleman",
+    link: "https://www.massimopaparello.com/blog/2025/12/yearmix-2025/",
+    author: "Massimo Paparello",
     pubDate: "Wed, 31 Dec 2025 00:00:00 +0000",
     category: "Recordings",
     description:

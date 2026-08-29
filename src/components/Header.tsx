@@ -37,7 +37,7 @@ const Header = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         <Link to="/" className="text-white text-2xl font-bold tracking-widest uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-          Gentleman
+          Massimo Paparello
         </Link>
 
         <nav className="hidden lg:flex items-center">

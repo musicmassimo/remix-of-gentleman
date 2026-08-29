@@ -10,11 +10,11 @@ const contacts = [
 
 const socials = [
   { label: "Instagram", handle: "@gentleman" },
-  { label: "YouTube", handle: "Gentleman Music" },
-  { label: "Facebook", handle: "gentlemanmusic" },
-  { label: "Spotify", handle: "Gentleman" },
-  { label: "Soundcloud", handle: "gentleman" },
-  { label: "Beatport", handle: "Gentleman" },
+  { label: "YouTube", handle: "Massimo Paparello Music" },
+  { label: "Facebook", handle: "massimopaparello" },
+  { label: "Spotify", handle: "Massimo Paparello" },
+  { label: "Soundcloud", handle: "massimopaparello" },
+  { label: "Beatport", handle: "Massimo Paparello" },
 ];
 
 const velvetSocials = [
@@ -79,9 +79,9 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Gentleman socials */}
+      {/* Massimo Paparello socials */}
       <section style={{ padding: "0 24px 80px", maxWidth: 800, margin: "0 auto", borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 60 }}>
-        <p style={{ ...s.label, marginBottom: 32 }}>Follow Gentleman</p>
+        <p style={{ ...s.label, marginBottom: 32 }}>Follow Massimo Paparello</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {socials.map((item, i) => (
             <HoverRow key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -129,10 +129,10 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ padding: "40px 24px", textAlign: "center", ...s.footer }}>
-        © 2026 Gentleman. All rights reserved.
-      </footer>
+    {/* Footer */}
+    <footer style={{ padding: "40px 24px", textAlign: "center", ...s.footer }}>
+      © 2026 Massimo Paparello. All rights reserved.
+    </footer>
     </main>
   );
 };
