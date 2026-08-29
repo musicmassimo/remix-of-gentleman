@@ -3,7 +3,7 @@ import portraitAsset from "@/assets/massimo-portrait.jpg.asset.json";
 const portraitImg = portraitAsset.url;
 
 const bioLines = [
-  "Born and raised in Los Angeles, CA, trumpeter Massimo Paparello brings nearly two decades of performance experience across jazz, soul, funk, pop, R&B, indie, and hip hop. He holds a Bachelor's and Master's degree in Jazz Performance from the New England Conservatory in Boston, where he developed the ear training, sight-reading, and harmonic foundation that anchors his playing today, mentored by Jason Palmer, Jason Moran, and Cecil McBee.",
+  "Born and raised in Los Angeles, CA, trumpeter Massimo Paparello brings nearly two decades of performance experience across jazz, soul, funk, pop, R&B, indie, and hip hop. He holds a Bachelor's and Master's degree in Jazz Performance from the New England Conservatory in Boston. His mentors include Jason Palmer, Jason Moran, and Cecil McBee.",
   "Massimo has performed at some of the country's most storied stages, including the Monterey Jazz Festival, Jordan Hall, Walt Disney Concert Hall, Dizzy's Club, Smalls Jazz Club, and The Lighthouse Cafe. His touring credits include nine months on the road with the BB King Allstars, and multi-month cruise ship contracts that took him to 39 countries, performing entirely by ear across international ports and onboard entertainment circuits.",
   "Beyond the stage, Massimo is an active arranger and composer, writing horn section parts and full band arrangements. He also leads his own jazz quintet, SYNDICATE, and works regularly as a transcriber for solos, horn lines, and ensemble parts.",
 ];
