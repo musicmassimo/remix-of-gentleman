@@ -1,65 +1,53 @@
-import { cn } from "@/lib/utils"
-import { InfiniteGallery } from "@/components/ui/infinite-gallery"
+import { useCallback, useEffect, useState } from "react"
 import { CenterText } from "@/components/ui/center-text"
-import { useIntroSequence } from "@/hooks/use-intro-sequence"
-import { galleryImages, introImages } from "@/data/galleryImages"
+import { PhotoCarousel } from "@/components/ui/photo-carousel"
+import { galleryImages } from "@/data/galleryImages"
 import TopNav from "@/components/TopNav"
 
-const IntroOverlay = ({ imageSrc }: { imageSrc: string | null }) => {
-  if (!imageSrc) return null
-
-  return (
-    <div className="fixed inset-0 z-20 h-dvh w-dvw bg-black">
-      <img
-        src={imageSrc}
-        alt=""
-        className="h-dvh w-dvw object-cover"
-      />
-    </div>
-  )
-}
+type Phase = "loading" | "typing" | "gallery"
 
 const Index = () => {
-  const { phase, currentImageSrc, isIntroComplete, skipIntro } =
-    useIntroSequence({
-      introImages,
-      startDuration: 300,
-      endDuration: 40,
-      initialDelay: 100,
-    })
+  const [phase, setPhase] = useState<Phase>("loading")
+  const [skipTyping, setSkipTyping] = useState(false)
+
+  // Hold on pure black for a beat, then start typing the name.
+  useEffect(() => {
+    const t = window.setTimeout(() => setPhase("typing"), 150)
+    return () => window.clearTimeout(t)
+  }, [])
+
+  // Once every letter of the name has appeared, fade the first photo in.
+  const handleNameComplete = useCallback(() => {
+    setPhase("gallery")
+  }, [])
+
+  const handleClick = () => {
+    if (phase === "typing") setSkipTyping(true)
+  }
 
   return (
     <div
-      className={cn(
-        "relative h-dvh w-full bg-black text-white overflow-hidden",
-        "transition-opacity duration-700",
-        phase === "loading" ? "opacity-0" : "opacity-100"
-      )}
-      onClick={phase === "intro" ? skipIntro : undefined}
+      className="relative h-dvh w-full overflow-hidden bg-black text-white"
+      onClick={handleClick}
     >
-      {/* Top nav */}
-      {isIntroComplete && <TopNav />}
+      {/* Top nav appears with the gallery */}
+      {phase === "gallery" && <TopNav />}
 
-      {/* Center text overlay */}
-      <CenterText rightText="MASSIMO PAPARELLO" visible={isIntroComplete} />
+      {/* Full-screen photo carousel — fades in after the name is complete */}
+      <PhotoCarousel items={galleryImages} active={phase === "gallery"} />
 
-      {/* Intro cycling images */}
-      {phase === "intro" && <IntroOverlay imageSrc={currentImageSrc} />}
+      {/* Name: typed on black, then held over the carousel */}
+      <CenterText
+        rightText="MASSIMO PAPARELLO"
+        visible={phase === "typing" || phase === "gallery"}
+        skip={skipTyping}
+        onRevealComplete={handleNameComplete}
+      />
 
-      {/* Main gallery - always mounted but hidden during intro */}
-      <div
-        className={cn(
-          "h-full w-full transition-opacity duration-500",
-          isIntroComplete ? "opacity-100" : "opacity-0"
-        )}
-      >
-        <InfiniteGallery items={galleryImages} enabled={isIntroComplete} />
-      </div>
-
-      {/* Skip hint during intro */}
-      {phase === "intro" && (
+      {/* Skip hint while the name is still typing */}
+      {phase === "typing" && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-30">
-          <p className="text-white/40 text-xs uppercase tracking-widest animate-pulse">
+          <p className="animate-pulse text-xs uppercase tracking-widest text-white/40">
             Click to skip
           </p>
         </div>

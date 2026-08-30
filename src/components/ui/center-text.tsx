@@ -4,40 +4,97 @@ import { cn } from "@/lib/utils"
 interface CenterTextProps extends React.HTMLAttributes<HTMLDivElement> {
   leftText?: string
   rightText: string
+  /** Start revealing `rightText` once this becomes true. */
   visible?: boolean
+  /** Immediately reveal every remaining letter (used to skip the intro). */
+  skip?: boolean
+  /** Fires exactly once, when every letter of `rightText` has been revealed. */
+  onRevealComplete?: () => void
 }
 
-const TYPING_SPEED_MS = 135
+const REVEAL_SPEED_MS = 135
+
+// Fisher-Yates shuffle of [0..length): the order in which letter positions
+// light up. Every letter still lands in its correct spot — only the reveal
+// order is randomised.
+function shuffledIndices(length: number): number[] {
+  const order = Array.from({ length }, (_, i) => i)
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[order[i], order[j]] = [order[j], order[i]]
+  }
+  return order
+}
 
 const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
-  ({ className, leftText, rightText, visible = false, ...props }, ref) => {
-    const [typedText, setTypedText] = React.useState("")
-    const [isTypingComplete, setIsTypingComplete] = React.useState(false)
+  (
+    {
+      className,
+      leftText,
+      rightText,
+      visible = false,
+      skip = false,
+      onRevealComplete,
+      ...props
+    },
+    ref
+  ) => {
+    const revealOrder = React.useMemo(
+      () => shuffledIndices(rightText.length),
+      [rightText]
+    )
 
-    // Type `rightText` out character by character once it becomes visible
-    // (i.e. once the intro sequence finishes), rather than fading in at once.
+    const [revealedCount, setRevealedCount] = React.useState(0)
+
+    // Keep the completion callback in a ref so the reveal effect doesn't need
+    // it as a dependency (avoids restarting the timer on every parent render).
+    const onRevealCompleteRef = React.useRef(onRevealComplete)
+    React.useEffect(() => {
+      onRevealCompleteRef.current = onRevealComplete
+    })
+
+    const completedRef = React.useRef(false)
+    const fireComplete = React.useCallback(() => {
+      if (completedRef.current) return
+      completedRef.current = true
+      onRevealCompleteRef.current?.()
+    }, [])
+
     React.useEffect(() => {
       if (!visible) {
-        setTypedText("")
-        setIsTypingComplete(false)
+        completedRef.current = false
+        setRevealedCount(0)
         return
       }
 
-      let count = 0
-      setTypedText("")
-      setIsTypingComplete(false)
+      if (skip) {
+        setRevealedCount(rightText.length)
+        fireComplete()
+        return
+      }
 
       const intervalId = window.setInterval(() => {
-        count += 1
-        setTypedText(rightText.slice(0, count))
-        if (count >= rightText.length) {
-          window.clearInterval(intervalId)
-          setIsTypingComplete(true)
-        }
-      }, TYPING_SPEED_MS)
+        setRevealedCount((count) => {
+          const next = count + 1
+          if (next >= rightText.length) {
+            window.clearInterval(intervalId)
+            fireComplete()
+            return rightText.length
+          }
+          return next
+        })
+      }, REVEAL_SPEED_MS)
 
       return () => window.clearInterval(intervalId)
-    }, [visible, rightText])
+    }, [visible, skip, rightText, fireComplete])
+
+    const revealed = React.useMemo(() => {
+      const set = new Set<number>()
+      for (let i = 0; i < revealedCount; i++) set.add(revealOrder[i])
+      return set
+    }, [revealedCount, revealOrder])
+
+    const isComplete = revealedCount >= rightText.length
 
     return (
       <div
@@ -74,12 +131,24 @@ const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
             )}
             aria-label={rightText}
           >
-            {typedText}
+            {rightText.split("").map((char, i) => (
+              <span
+                key={i}
+                aria-hidden="true"
+                style={{
+                  whiteSpace: "pre",
+                  opacity: revealed.has(i) ? 1 : 0,
+                  transition: "opacity 150ms ease-out",
+                }}
+              >
+                {char}
+              </span>
+            ))}
             <span
               aria-hidden="true"
               className={cn(
                 "inline-block animate-pulse",
-                isTypingComplete && "opacity-40"
+                isComplete && "opacity-40"
               )}
             >
               |

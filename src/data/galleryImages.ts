@@ -1,6 +1,13 @@
-import type { MediaItem } from "@/components/ui/infinite-gallery"
-
 // Photos of Massimo Paparello
+
+export interface MediaItem {
+  src: string
+  width: number
+  height: number
+  alt?: string
+  objectPosition?: string
+}
+
 export const galleryImages: MediaItem[] = [
   {
     src: "/images/massimo-01.jpg",
@@ -57,14 +64,4 @@ export const galleryImages: MediaItem[] = [
     alt: "Massimo Paparello",
     objectPosition: "80% center",
   },
-]
-
-// Images used during the intro sequence (cycling animation)
-// Final image matches first gallery image for seamless transition
-export const introImages: string[] = [
-  "/images/massimo-05.jpg",
-  "/images/massimo-09.jpg",
-  "/images/massimo-03.jpg",
-  // Key photo - final intro image, first in gallery
-  "/images/massimo-01.jpg",
 ]
