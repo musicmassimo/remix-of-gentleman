@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { CenterText } from "@/components/ui/center-text"
 import { PhotoCarousel } from "@/components/ui/photo-carousel"
 import { galleryImages } from "@/data/galleryImages"
@@ -10,15 +10,20 @@ const Index = () => {
   const [phase, setPhase] = useState<Phase>("loading")
   const [skipTyping, setSkipTyping] = useState(false)
 
+  const galleryTimerRef = useRef<number>()
+
   // Hold on pure black for a beat, then start typing the name.
   useEffect(() => {
     const t = window.setTimeout(() => setPhase("typing"), 150)
     return () => window.clearTimeout(t)
   }, [])
 
-  // Once every letter of the name has appeared, fade the first photo in.
+  useEffect(() => () => window.clearTimeout(galleryTimerRef.current), [])
+
+  // Once every letter of the name has appeared, hold on the black screen with
+  // the name fully visible for 2s, then fade the first photo in.
   const handleNameComplete = useCallback(() => {
-    setPhase("gallery")
+    galleryTimerRef.current = window.setTimeout(() => setPhase("gallery"), 2000)
   }, [])
 
   const handleClick = () => {
