@@ -36,8 +36,9 @@ const s = {
   footer: { fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.3)" },
 };
 
-const HoverRow = ({ children, style, onClick }: { children: React.ReactNode; style?: React.CSSProperties; onClick?: () => void }) => (
+const HoverRow = ({ children, style, onClick, className }: { children: React.ReactNode; style?: React.CSSProperties; onClick?: () => void; className?: string }) => (
   <div
+    className={className}
     style={{ ...s.row, opacity: 0.7, ...style }}
     onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
     onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}
@@ -47,11 +48,36 @@ const HoverRow = ({ children, style, onClick }: { children: React.ReactNode; sty
   </div>
 );
 
+/*
+ * Label / value rows. On desktop these sit on one line (label left, value
+ * right). On narrow screens the long email addresses and handles are single
+ * unbreakable tokens that push past the viewport and get clipped, so below
+ * 600px the row stacks vertically and long values are allowed to wrap.
+ */
+const rowCss = `
+  .cx-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cx-row > :last-child {
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 600px) {
+    .cx-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+  }
+`;
+
 const Contact = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <main style={{ background: "#000", color: "#fff", fontFamily: "'Space Grotesk', monospace", minHeight: "100vh" }}>
+    <main style={{ background: "#000", color: "#fff", fontFamily: "'Space Grotesk', monospace", minHeight: "100vh", overflowX: "hidden" }}>
+      <style>{rowCss}</style>
       <TopNav />
 
       {/* Header banner */}
@@ -73,7 +99,7 @@ const Contact = () => {
         <p style={{ ...s.label, marginBottom: 32 }}>Booking & Management</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {contacts.map((c, i) => (
-            <HoverRow key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <HoverRow key={i} className="cx-row">
               <span>{c.label}</span>
               {c.href ? (
                 <a href={c.href} style={{ color: "inherit", textDecoration: "none" }}>{c.value}</a>
@@ -90,7 +116,7 @@ const Contact = () => {
         <p style={{ ...s.label, marginBottom: 32 }}>Follow Massimo Paparello</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {socials.map((item, i) => (
-            <HoverRow key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <HoverRow key={i} className="cx-row">
               <span>{item.label}</span>
               <span>{item.handle}</span>
             </HoverRow>
@@ -103,7 +129,7 @@ const Contact = () => {
         <p style={{ ...s.label, marginBottom: 32 }}>Follow The Velvet Hour</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {velvetSocials.map((item, i) => (
-            <HoverRow key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <HoverRow key={i} className="cx-row">
               <span>{item.label}</span>
               <span>{item.handle}</span>
             </HoverRow>
