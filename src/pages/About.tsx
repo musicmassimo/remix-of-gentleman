@@ -33,6 +33,8 @@ const About = () => (
       <img
         src={portraitImg}
         alt="Massimo Paparello"
+        loading="eager"
+        decoding="async"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
       />
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #000 0%, transparent 50%)" }} />

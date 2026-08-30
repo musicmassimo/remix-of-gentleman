@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Calendar, MapPin, Clock, Share2 } from "lucide-react";
-import Header from "@/components/Header";
+import TopNav from "@/components/TopNav";
 import Footer from "@/components/Footer";
 import { videos } from "@/data/videos";
 const thumbnails = [
@@ -23,11 +23,11 @@ const VideoDetail = () => {
 
   if (!video) {
     return (
-      <main className="min-h-screen bg-background">
-        <Header />
+      <main className="min-h-screen" style={{ background: "#000" }}>
+        <TopNav />
         <div className="pt-28 pb-20 px-6 text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-4">Video not found</h1>
-          <Link to="/videos" className="text-muted-foreground hover:text-foreground underline">Back to all videos</Link>
+          <h1 className="text-3xl font-bold text-white mb-4">Video not found</h1>
+          <Link to="/gallery/videos" className="text-white/50 hover:text-white underline">Back to all videos</Link>
         </div>
         <Footer />
       </main>
@@ -37,13 +37,13 @@ const VideoDetail = () => {
   const related = videos.filter((v) => v.id !== id).slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <main className="min-h-screen" style={{ background: "#000" }}>
+      <TopNav />
 
       <div className="pt-24 pb-20 px-6">
         <div className="max-w-5xl mx-auto">
           {/* Back */}
-          <Link to="/videos" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
+          <Link to="/gallery/videos" className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors mb-6">
             <ArrowLeft size={16} /> All Videos
           </Link>
 
@@ -52,6 +52,10 @@ const VideoDetail = () => {
             <img
               src={thumbnails[videoIndex % thumbnails.length]}
               alt={video.title}
+              width={1600}
+              height={900}
+              loading="eager"
+              decoding="async"
               className="w-full h-full object-cover opacity-70"
             />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -64,28 +68,28 @@ const VideoDetail = () => {
           {/* Info */}
           <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
             <div>
-              <span className="text-xs uppercase tracking-wider text-muted-foreground mb-2 block">
+              <span className="text-xs uppercase tracking-wider text-white/50 mb-2 block">
                 {categoryLabel[video.category]}
               </span>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{video.title}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{video.title}</h1>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 border border-border rounded-full text-sm text-muted-foreground hover:text-foreground hover:border-foreground transition-all">
+            <button className="flex items-center gap-2 px-4 py-2 border border-white/15 rounded-full text-sm text-white/50 hover:text-white hover:border-white transition-all">
               <Share2 size={14} /> Share
             </button>
           </div>
 
-          <div className="flex flex-wrap gap-6 text-sm text-muted-foreground mb-8">
+          <div className="flex flex-wrap gap-6 text-sm text-white/50 mb-8">
             <span className="flex items-center gap-1.5"><Calendar size={14} /> {video.date}</span>
             <span className="flex items-center gap-1.5"><MapPin size={14} /> {video.location}</span>
             <span className="flex items-center gap-1.5"><Clock size={14} /> {video.duration}</span>
           </div>
 
-          <p className="text-foreground/80 leading-relaxed max-w-3xl text-lg">{video.description}</p>
+          <p className="text-white/80 leading-relaxed max-w-3xl text-lg">{video.description}</p>
 
           {/* Related */}
           {related.length > 0 && (
-            <section className="mt-16 pt-12 border-t border-border">
-              <h2 className="text-xl font-bold text-foreground mb-6 tracking-tight">More Videos</h2>
+            <section className="mt-16 pt-12 border-t border-white/15">
+              <h2 className="text-xl font-bold text-white mb-6 tracking-tight">More Videos</h2>
               <div className="grid sm:grid-cols-3 gap-6">
                 {related.map((v, i) => (
                   <Link key={v.id} to={`/videos/${v.id}`} className="group">
@@ -93,14 +97,17 @@ const VideoDetail = () => {
                       <img
                         src={thumbnails[i % thumbnails.length]}
                         alt={v.title}
+                        width={1600}
+                        height={900}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-black/30" />
                       <span className="absolute bottom-2 right-2 text-xs bg-black/60 text-white px-2 py-0.5 rounded backdrop-blur-sm">{v.duration}</span>
                     </div>
-                    <h3 className="text-sm font-medium text-foreground group-hover:underline leading-snug">{v.title}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{v.date}</p>
+                    <h3 className="text-sm font-medium text-white group-hover:underline leading-snug">{v.title}</h3>
+                    <p className="text-xs text-white/50 mt-0.5">{v.date}</p>
                   </Link>
                 ))}
               </div>

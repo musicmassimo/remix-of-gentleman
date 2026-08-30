@@ -85,6 +85,8 @@ const Contact = () => {
         <img
           src="/images/massimo-11.jpg"
           alt="Massimo Paparello"
+          loading="eager"
+          decoding="async"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
         />
         <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)" }} />

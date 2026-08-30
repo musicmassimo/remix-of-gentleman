@@ -35,18 +35,21 @@ const PhotoCarousel = React.forwardRef<HTMLDivElement, PhotoCarouselProps>(
     )
 
     // Fade the whole carousel (i.e. the first photo) up from black once active.
+    // Scoped in a gsap.context so cleanup is a single call; `kill()` rather
+    // than `revert()` because reverting would snap the opacity back and undo
+    // the fade we just ran.
     React.useEffect(() => {
       const el = containerRef.current
       if (!el) return
-      const tween = gsap.to(el, {
-        autoAlpha: active ? 1 : 0,
-        duration: FADE_IN_S,
-        ease: "power2.out",
-        overwrite: "auto",
-      })
-      return () => {
-        tween.kill()
-      }
+      const ctx = gsap.context(() => {
+        gsap.to(el, {
+          autoAlpha: active ? 1 : 0,
+          duration: FADE_IN_S,
+          ease: "power2.out",
+          overwrite: "auto",
+        })
+      }, el)
+      return () => ctx.kill()
     }, [active])
 
     // Auto-advance: GSAP crossfade between the outgoing and incoming image.
@@ -59,6 +62,11 @@ const PhotoCarousel = React.forwardRef<HTMLDivElement, PhotoCarouselProps>(
         window.matchMedia("(prefers-reduced-motion: reduce)").matches
       if (prefersReducedMotion) return
 
+      // Crossfade tweens are created inside the interval callback, so they are
+      // registered on this context and torn down together when the effect
+      // re-runs (active/interval change) instead of outliving it.
+      const ctx = gsap.context(() => {})
+
       const id = window.setInterval(() => {
         const from = indexRef.current
         const to = (from + 1) % items.length
@@ -67,28 +75,34 @@ const PhotoCarousel = React.forwardRef<HTMLDivElement, PhotoCarouselProps>(
 
         const fromEl = imgRefs.current[from]
         const toEl = imgRefs.current[to]
-        if (fromEl) {
-          gsap.to(fromEl, {
-            opacity: 0,
-            duration: CROSSFADE_S,
-            ease: "sine.inOut",
-            overwrite: "auto",
-          })
-        }
-        if (toEl) {
-          gsap.to(toEl, {
-            opacity: 1,
-            duration: CROSSFADE_S,
-            ease: "sine.inOut",
-            overwrite: "auto",
-          })
-        }
+        ctx.add(() => {
+          if (fromEl) {
+            gsap.to(fromEl, {
+              opacity: 0,
+              duration: CROSSFADE_S,
+              ease: "sine.inOut",
+              overwrite: "auto",
+            })
+          }
+          if (toEl) {
+            gsap.to(toEl, {
+              opacity: 1,
+              duration: CROSSFADE_S,
+              ease: "sine.inOut",
+              overwrite: "auto",
+            })
+          }
+        })
       }, intervalMs)
 
-      return () => window.clearInterval(id)
+      return () => {
+        window.clearInterval(id)
+        ctx.kill()
+      }
     }, [active, items.length, intervalMs])
 
-    // Kill every remaining tween on this component's elements on unmount.
+    // Final safety net: nothing should still be animating these nodes after
+    // unmount, even if a tween was created outside the contexts above.
     React.useEffect(
       () => () => {
         gsap.killTweensOf(

@@ -14,6 +14,8 @@ const Music = () => (
       <img
         src={coverImage}
         alt="Lucid Architecture"
+        loading="eager"
+        decoding="async"
         className="h-full w-full object-cover"
       />
 

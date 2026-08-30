@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
-import Header from "@/components/Header";
+import TopNav from "@/components/TopNav";
 import Footer from "@/components/Footer";
 import { videos, type Video } from "@/data/videos";
 const thumbnails = [
@@ -17,13 +17,21 @@ const categoryLabel: Record<Video["category"], string> = {
 };
 
 const Videos = () => (
-  <main className="min-h-screen bg-background">
-    <Header />
+  <main className="min-h-screen" style={{ background: "#000" }}>
+    <TopNav />
 
     {/* Hero */}
     <section className="relative h-[40vh] overflow-hidden">
-      <img src={thumbnails[0]} alt="" className="absolute inset-0 w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-black/50 to-transparent" />
+      <img
+        src={thumbnails[0]}
+        alt=""
+        width={1600}
+        height={900}
+        loading="eager"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
       <div className="absolute bottom-8 left-0 right-0 text-center">
         <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight">Videos</h1>
         <p className="text-white/60 mt-2">Live sets, studio sessions & documentaries</p>
@@ -35,7 +43,15 @@ const Videos = () => (
       <div className="max-w-6xl mx-auto">
         <Link to={`/videos/${videos[0].id}`} className="block group">
           <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
-            <img src={thumbnails[0]} alt={videos[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img
+              src={thumbnails[0]}
+              alt={videos[0].title}
+              width={1600}
+              height={900}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-24 h-24 rounded-full border-4 border-white/80 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -62,8 +78,11 @@ const Videos = () => (
                 <img
                   src={thumbnails[i % thumbnails.length]}
                   alt={v.title}
+                  width={1600}
+                  height={900}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -80,8 +99,8 @@ const Videos = () => (
                   <span className="text-xs bg-black/60 text-white px-2 py-1 rounded backdrop-blur-sm">{v.duration}</span>
                 </div>
               </div>
-              <h3 className="font-semibold text-foreground text-sm group-hover:underline leading-snug">{v.title}</h3>
-              <p className="text-xs text-muted-foreground mt-1">{v.date} · {v.location}</p>
+              <h3 className="font-semibold text-white text-sm group-hover:underline leading-snug">{v.title}</h3>
+              <p className="text-xs text-white/50 mt-1">{v.date} · {v.location}</p>
             </Link>
           ))}
         </div>
