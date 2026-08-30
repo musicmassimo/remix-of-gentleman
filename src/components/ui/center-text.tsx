@@ -1,4 +1,5 @@
 import * as React from "react"
+import gsap from "gsap"
 import { cn } from "@/lib/utils"
 
 interface CenterTextProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -12,19 +13,10 @@ interface CenterTextProps extends React.HTMLAttributes<HTMLDivElement> {
   onRevealComplete?: () => void
 }
 
-const REVEAL_SPEED_MS = 135
-
-// Fisher-Yates shuffle of [0..length): the order in which letter positions
-// light up. Every letter still lands in its correct spot — only the reveal
-// order is randomised.
-function shuffledIndices(length: number): number[] {
-  const order = Array.from({ length }, (_, i) => i)
-  for (let i = order.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[order[i], order[j]] = [order[j], order[i]]
-  }
-  return order
-}
+// Roughly matches the previous ~135ms-per-letter cadence: each letter fades in
+// over LETTER_FADE_S, and the reveals are spaced LETTER_STAGGER_S apart.
+const LETTER_STAGGER_S = 0.135
+const LETTER_FADE_S = 0.2
 
 const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
   (
@@ -39,15 +31,12 @@ const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
     },
     ref
   ) => {
-    const revealOrder = React.useMemo(
-      () => shuffledIndices(rightText.length),
-      [rightText]
-    )
-
-    const [revealedCount, setRevealedCount] = React.useState(0)
+    const letterRefs = React.useRef<Array<HTMLSpanElement | null>>([])
+    const tweenRef = React.useRef<gsap.core.Tween | null>(null)
+    const [isComplete, setIsComplete] = React.useState(false)
 
     // Keep the completion callback in a ref so the reveal effect doesn't need
-    // it as a dependency (avoids restarting the timer on every parent render).
+    // it as a dependency (avoids restarting the animation on parent re-render).
     const onRevealCompleteRef = React.useRef(onRevealComplete)
     React.useEffect(() => {
       onRevealCompleteRef.current = onRevealComplete
@@ -55,46 +44,64 @@ const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
 
     const completedRef = React.useRef(false)
     const fireComplete = React.useCallback(() => {
+      setIsComplete(true)
       if (completedRef.current) return
       completedRef.current = true
       onRevealCompleteRef.current?.()
     }, [])
 
     React.useEffect(() => {
+      const letters = letterRefs.current.filter(
+        (el): el is HTMLSpanElement => el != null
+      )
+
+      // Tear down any animation from a previous run before starting a new one.
+      tweenRef.current?.kill()
+      tweenRef.current = null
+
       if (!visible) {
         completedRef.current = false
-        setRevealedCount(0)
+        setIsComplete(false)
+        if (letters.length) gsap.set(letters, { opacity: 0 })
         return
       }
 
+      if (!letters.length) return
+
       if (skip) {
-        setRevealedCount(rightText.length)
+        gsap.set(letters, { opacity: 1 })
         fireComplete()
         return
       }
 
-      const intervalId = window.setInterval(() => {
-        setRevealedCount((count) => {
-          const next = count + 1
-          if (next >= rightText.length) {
-            window.clearInterval(intervalId)
-            fireComplete()
-            return rightText.length
-          }
-          return next
-        })
-      }, REVEAL_SPEED_MS)
+      gsap.set(letters, { opacity: 0 })
+      // GSAP stagger with `from: "random"` reveals the letters in a random
+      // order while each still animates in its own fixed position.
+      tweenRef.current = gsap.to(letters, {
+        opacity: 1,
+        duration: LETTER_FADE_S,
+        ease: "power1.out",
+        stagger: { each: LETTER_STAGGER_S, from: "random" },
+        onComplete: fireComplete,
+      })
 
-      return () => window.clearInterval(intervalId)
+      return () => {
+        tweenRef.current?.kill()
+        tweenRef.current = null
+      }
     }, [visible, skip, rightText, fireComplete])
 
-    const revealed = React.useMemo(() => {
-      const set = new Set<number>()
-      for (let i = 0; i < revealedCount; i++) set.add(revealOrder[i])
-      return set
-    }, [revealedCount, revealOrder])
-
-    const isComplete = revealedCount >= rightText.length
+    // Safety net: kill anything still running if we unmount mid-animation
+    // (e.g. navigating away from the homepage).
+    React.useEffect(
+      () => () => {
+        tweenRef.current?.kill()
+        gsap.killTweensOf(
+          letterRefs.current.filter((el): el is HTMLSpanElement => el != null)
+        )
+      },
+      []
+    )
 
     return (
       <div
@@ -135,11 +142,10 @@ const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
               <span
                 key={i}
                 aria-hidden="true"
-                style={{
-                  whiteSpace: "pre",
-                  opacity: revealed.has(i) ? 1 : 0,
-                  transition: "opacity 150ms ease-out",
+                ref={(el) => {
+                  letterRefs.current[i] = el
                 }}
+                style={{ whiteSpace: "pre", opacity: 0 }}
               >
                 {char}
               </span>

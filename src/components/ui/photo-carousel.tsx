@@ -1,4 +1,5 @@
 import * as React from "react"
+import gsap from "gsap"
 import { cn } from "@/lib/utils"
 import type { MediaItem } from "@/data/galleryImages"
 
@@ -11,15 +12,44 @@ interface PhotoCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const DEFAULT_INTERVAL_MS = 5500
-const CROSSFADE_MS = 2000
+const FADE_IN_S = 2
+const CROSSFADE_S = 2
 
 const PhotoCarousel = React.forwardRef<HTMLDivElement, PhotoCarouselProps>(
   (
     { className, items, active = false, intervalMs = DEFAULT_INTERVAL_MS, ...props },
-    ref
+    forwardedRef
   ) => {
+    const containerRef = React.useRef<HTMLDivElement | null>(null)
+    const imgRefs = React.useRef<Array<HTMLImageElement | null>>([])
+    const indexRef = React.useRef(0)
     const [index, setIndex] = React.useState(0)
 
+    const setContainer = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        containerRef.current = node
+        if (typeof forwardedRef === "function") forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      },
+      [forwardedRef]
+    )
+
+    // Fade the whole carousel (i.e. the first photo) up from black once active.
+    React.useEffect(() => {
+      const el = containerRef.current
+      if (!el) return
+      const tween = gsap.to(el, {
+        autoAlpha: active ? 1 : 0,
+        duration: FADE_IN_S,
+        ease: "power2.out",
+        overwrite: "auto",
+      })
+      return () => {
+        tween.kill()
+      }
+    }, [active])
+
+    // Auto-advance: GSAP crossfade between the outgoing and incoming image.
     React.useEffect(() => {
       if (!active || items.length <= 1) return
 
@@ -30,32 +60,64 @@ const PhotoCarousel = React.forwardRef<HTMLDivElement, PhotoCarouselProps>(
       if (prefersReducedMotion) return
 
       const id = window.setInterval(() => {
-        setIndex((i) => (i + 1) % items.length)
+        const from = indexRef.current
+        const to = (from + 1) % items.length
+        indexRef.current = to
+        setIndex(to)
+
+        const fromEl = imgRefs.current[from]
+        const toEl = imgRefs.current[to]
+        if (fromEl) {
+          gsap.to(fromEl, {
+            opacity: 0,
+            duration: CROSSFADE_S,
+            ease: "sine.inOut",
+            overwrite: "auto",
+          })
+        }
+        if (toEl) {
+          gsap.to(toEl, {
+            opacity: 1,
+            duration: CROSSFADE_S,
+            ease: "sine.inOut",
+            overwrite: "auto",
+          })
+        }
       }, intervalMs)
+
       return () => window.clearInterval(id)
     }, [active, items.length, intervalMs])
 
+    // Kill every remaining tween on this component's elements on unmount.
+    React.useEffect(
+      () => () => {
+        gsap.killTweensOf(
+          imgRefs.current.filter((el): el is HTMLImageElement => el != null)
+        )
+        if (containerRef.current) gsap.killTweensOf(containerRef.current)
+      },
+      []
+    )
+
     return (
       <div
-        ref={ref}
-        className={cn(
-          "absolute inset-0 h-full w-full transition-opacity ease-out",
-          active ? "opacity-100" : "opacity-0",
-          className
-        )}
-        style={{ transitionDuration: `${CROSSFADE_MS}ms` }}
+        ref={setContainer}
+        className={cn("absolute inset-0 h-full w-full", className)}
+        style={{ opacity: 0, visibility: "hidden" }}
         {...props}
       >
         {items.map((item, i) => (
           <img
             key={item.src}
+            ref={(el) => {
+              imgRefs.current[i] = el
+            }}
             src={item.src}
             alt={item.alt ?? ""}
-            className="absolute inset-0 h-full w-full object-cover transition-opacity ease-in-out"
+            className="absolute inset-0 h-full w-full object-cover"
             style={{
               objectPosition: item.objectPosition ?? "center",
-              opacity: i === index ? 1 : 0,
-              transitionDuration: `${CROSSFADE_MS}ms`,
+              opacity: i === 0 ? 1 : 0,
             }}
             loading={i === 0 ? "eager" : "lazy"}
             decoding="async"
