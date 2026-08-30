@@ -1,10 +1,10 @@
 import { useState } from "react";
 import TopNav from "@/components/TopNav";
-import { tourDates } from "@/data/tourDates";
+import { shows } from "@/data/shows";
 
 const Calendar = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const hovered = hoveredIndex !== null ? tourDates[hoveredIndex] : null;
+  const hovered = hoveredIndex !== null ? shows[hoveredIndex] : null;
 
   return (
     <main
@@ -12,7 +12,7 @@ const Calendar = () => {
       style={{ background: "#000", color: "#fff", fontFamily: "'Space Grotesk', monospace" }}
     >
       {/* Hover background image - always mounted, opacity controlled */}
-      {tourDates.map((d, i) => d.image ? (
+      {shows.map((d, i) => d.image ? (
         <div
           key={`bg-${i}`}
           className="fixed inset-0 z-0 transition-opacity duration-700 pointer-events-none"
@@ -29,7 +29,7 @@ const Calendar = () => {
 
       {/* Tour list - full width */}
       <div className="flex-1 pt-16 relative z-10">
-        {tourDates.map((d, i) => (
+        {shows.map((d, i) => (
           <div
             key={i}
             className="flex items-center gap-4 py-4 px-8 w-screen transition-opacity duration-200 cursor-default"
@@ -40,7 +40,7 @@ const Calendar = () => {
             {/* Venue + date - left aligned */}
             <div className="flex-1">
               <p style={{ fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                {d.venue}
+                {d.city ? `${d.venue} · ${d.city}` : d.venue}
               </p>
               <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", letterSpacing: "0.15em" }}>
                 {d.date}
