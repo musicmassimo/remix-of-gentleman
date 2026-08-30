@@ -3,7 +3,7 @@
    Weights are limited to the ones actually used in the codebase: 400 (body),
    500 (font-medium), 600 (font-semibold) and 700 (font-bold). Nothing uses
    font-thin (100) or font-light (300), so those are not requested. */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
