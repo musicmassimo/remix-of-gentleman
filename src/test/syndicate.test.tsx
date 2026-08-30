@@ -136,6 +136,51 @@ describe("SYNDICATE page", () => {
       expect(sel.trim().startsWith(".syn")).toBe(true);
     }
     // Gradient text must declare a solid colour before the @supports block.
-    expect(css).toMatch(/\.syn-title\s*\{[^}]*color:\s*#ff5a3b/);
+    expect(css).toMatch(/\.syn-heading\s*\{[^}]*color:\s*#ff7a42/);
+  });
+});
+
+describe("SYNDICATE stencil header", () => {
+  it("is the page's only title, with no leftover heading above it", () => {
+    const { container } = renderPage();
+
+    const h1s = Array.from(container.querySelectorAll("h1"));
+    expect(h1s).toHaveLength(1);
+    expect(h1s[0]).toHaveClass("syn-hero-title");
+    expect(h1s[0].textContent).toBe("Syndicate");
+
+    // The old gradient title and its tagline are gone entirely.
+    expect(container.querySelector(".syn-title")).toBeNull();
+    expect(container.textContent).not.toContain("Los Angeles Jazz Quintet");
+
+    // The header is the first thing after the nav, so About follows it directly.
+    const sections = Array.from(container.querySelectorAll("section"));
+    expect(sections[0]).toHaveClass("syn-hero");
+    expect(sections[1].querySelector(".syn-heading")?.textContent).toBe("About");
+  });
+
+  it("puts the photo behind a blended plate", () => {
+    const { container } = renderPage();
+    const hero = container.querySelector(".syn-hero")!;
+
+    const img = hero.querySelector("img")!;
+    expect(img).toHaveAttribute("src", "/images/syndicate-header.jpg");
+    // Decorative: the h1 already carries the accessible name.
+    expect(img).toHaveAttribute("aria-hidden", "true");
+    expect(img).toHaveAttribute("alt", "");
+
+    expect(hero.querySelector(".syn-hero-plate")).not.toBeNull();
+  });
+
+  it("uses darken with a near-black plate and white letterforms", () => {
+    const { container } = renderPage();
+    const css = container.querySelector("style")!.textContent!;
+
+    // darken => min(photo, plate): dark surround, photo inside the type.
+    expect(css).toMatch(/\.syn-hero-plate\s*\{[^}]*mix-blend-mode:\s*darken/);
+    expect(css).toMatch(/\.syn-hero-plate\s*\{[^}]*background:\s*#17130f/);
+    expect(css).toMatch(/\.syn-hero-title\s*\{[^}]*color:\s*#fff/);
+    // Blend must not escape the section and tint the page behind it.
+    expect(css).toMatch(/\.syn-hero\s*\{[^}]*isolation:\s*isolate/);
   });
 });

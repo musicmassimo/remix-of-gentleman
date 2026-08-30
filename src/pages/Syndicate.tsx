@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import TopNav from "@/components/TopNav";
 
 const lineup = [
@@ -33,33 +35,67 @@ const s = {
 };
 
 /*
- * SYNDICATE's own visual identity: a red→orange gradient used for the title,
- * section headings and accent elements. Everything is namespaced under `.syn`
- * so none of it leaks into the rest of the site's palette.
+ * SYNDICATE's own visual identity: a red→orange gradient on section headings
+ * and accent elements, plus the blend-mode stencil header. Everything is
+ * namespaced under `.syn` so none of it leaks into the rest of the site.
  *
  * Gradient text needs a real fallback: setting `color: transparent` without
  * background-clip support would render the text invisible, so the solid colour
  * is declared first and the gradient only applied inside @supports.
  */
 const synCss = `
-  .syn-title {
+  /* Stencil header. The photo sits underneath; the plate above it is filled
+     with the site's near-black and carries white letterforms, then blended
+     down with mix-blend-mode: darken.
+
+     darken keeps min(photo, plate) per channel:
+       - over the #17130f plate the plate always wins  -> dark surround
+       - inside the #fff letters the photo always wins -> photo in the type
+
+     lighten was the other candidate but inverts this: max() makes the photo
+     wash over the surround and the letters go flat white, which reads as a
+     bright block rather than a stencil on a dark page.
+
+     isolation keeps the blend from reaching the page background, and if a
+     browser doesn't support mix-blend-mode the plate simply stays opaque —
+     white type on near-black, still legible. */
+  .syn-hero {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    overflow: hidden;
+    background: #17130f;
+  }
+  .syn-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .syn-hero-plate {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(220px, 32vw, 460px);
+    padding: 64px 12px 0;
+    background: #17130f;
+    mix-blend-mode: darken;
+  }
+  .syn-hero-title {
+    margin: 0;
     font-family: 'Archivo Black', 'Space Grotesk', system-ui, sans-serif;
     font-weight: 400;
-    font-size: clamp(52px, 15vw, 132px);
-    line-height: 0.95;
+    font-size: clamp(48px, 17vw, 260px);
+    line-height: 0.9;
     letter-spacing: -0.02em;
     text-transform: uppercase;
-    display: inline-block;
-    transform: skewX(-8deg);
-    color: #ff5a3b;
-  }
-  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
-    .syn-title {
-      background-image: linear-gradient(100deg, #ff3b3b 0%, #ff9d4d 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+    text-align: center;
+    white-space: nowrap;
+    color: #fff;
   }
 
   .syn-heading {
@@ -147,7 +183,64 @@ const synCss = `
   }
 `;
 
-const Syndicate = () => (
+const Syndicate = () => {
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  // Fade/scale the header in as it scrolls into view. IntersectionObserver
+  // plus a plain gsap.to keeps this on GSAP's core library — ScrollTrigger is
+  // not needed and no Club plugin is involved.
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Leave the header fully visible rather than animating it.
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {}, el);
+    gsap.set(el, { opacity: 0, scale: 0.96 });
+
+    const reveal = () => {
+      ctx.add(() => {
+        gsap.to(el, {
+          opacity: 1,
+          scale: 1,
+          duration: 1.1,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      });
+    };
+
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver === "function") {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            reveal();
+            observer?.disconnect();
+            observer = null;
+          }
+        },
+        { threshold: 0.2 }
+      );
+      observer.observe(el);
+    } else {
+      // No IntersectionObserver (older browsers, jsdom): just show it.
+      reveal();
+    }
+
+    return () => {
+      observer?.disconnect();
+      // kill() rather than revert() — reverting would restore opacity 0.
+      ctx.kill();
+    };
+  }, []);
+
+  return (
   <main
     className="syn"
     style={{
@@ -160,22 +253,19 @@ const Syndicate = () => (
     <style>{synCss}</style>
     <TopNav />
 
-    {/* Title */}
-    <section style={{ ...s.section, paddingTop: 120, paddingBottom: 60 }}>
-      <h1 style={{ margin: 0 }}>
-        <span className="syn-title">Syndicate</span>
-      </h1>
-      <p
-        style={{
-          marginTop: 20,
-          fontSize: 11,
-          letterSpacing: "0.3em",
-          textTransform: "uppercase",
-          color: "rgba(255,255,255,0.4)",
-        }}
-      >
-        Los Angeles Jazz Quintet
-      </p>
+    {/* Stencil header — the page's only title. */}
+    <section className="syn-hero" ref={heroRef}>
+      <img
+        className="syn-hero-img"
+        src="/images/syndicate-header.jpg"
+        alt=""
+        aria-hidden="true"
+        loading="eager"
+        decoding="async"
+      />
+      <div className="syn-hero-plate">
+        <h1 className="syn-hero-title">Syndicate</h1>
+      </div>
     </section>
 
     <hr className="syn-rule" />
@@ -315,6 +405,7 @@ const Syndicate = () => (
       © 2026 Massimo Paparello. All rights reserved.
     </footer>
   </main>
-);
+  );
+};
 
 export default Syndicate;
