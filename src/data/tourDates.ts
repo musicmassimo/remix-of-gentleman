@@ -6,22 +6,22 @@ export interface TourDate {
 }
 
 export const tourDates: TourDate[] = [
-  { date: "JAN 30", venue: "The Spectrum · Afterglow · Metro City", image: "https://images.unsplash.com/photo-1766939229108-eeeebe838be1?w=1600&q=80", ticketLink: "#" },
-  { date: "FEB 14", venue: "The Underground · Harbor District", image: "https://images.unsplash.com/photo-1766939228800-930ab56f16f9?w=1600&q=80", ticketLink: "#" },
-  { date: "FEB 28", venue: "Seven Frequencies · Westside · Metro City", image: "https://images.unsplash.com/photo-1766939228746-c0acc10344e4?w=1600&q=80", ticketLink: "#" },
-  { date: "MARCH 13", venue: "The Crossing · Metro City", image: "https://images.unsplash.com/photo-1766939229108-eeeebe838be1?w=1600&q=80", ticketLink: "#" },
+  { date: "JAN 30", venue: "The Spectrum · Afterglow · Metro City", image: "/__l5e/assets-v1/1b0c6778-16fc-4453-814a-397430f06cb1/Massimo_06_11_26_481.jpg", ticketLink: "#" },
+  { date: "FEB 14", venue: "The Underground · Harbor District", image: "/__l5e/assets-v1/5b2a3229-abfa-4d66-a03e-f895d9da7f9d/Massimo_06_11_26_126.jpg", ticketLink: "#" },
+  { date: "FEB 28", venue: "Seven Frequencies · Westside · Metro City", image: "/__l5e/assets-v1/e2bfeba6-227f-4e64-8a3d-dc3689affb7c/Massimo_06_11_26_382.jpg", ticketLink: "#" },
+  { date: "MARCH 13", venue: "The Crossing · Metro City", image: "/__l5e/assets-v1/1b0c6778-16fc-4453-814a-397430f06cb1/Massimo_06_11_26_481.jpg", ticketLink: "#" },
   { date: "MARCH 16 – APR 02", venue: "Time Off" },
-  { date: "APR 04", venue: "Echo Chamber · Northshore", image: "https://images.unsplash.com/photo-1766939228800-930ab56f16f9?w=1600&q=80", ticketLink: "#" },
-  { date: "APR 10", venue: "Nebula Sound · Industrial Quarter · Basel (CH)", image: "https://images.unsplash.com/photo-1766939228746-c0acc10344e4?w=1600&q=80", ticketLink: "#" },
-  { date: "APR 26", venue: "Spring Night w/ Guest Artist All Nighter · The Jewel Box · Metro City", image: "https://images.unsplash.com/photo-1766939229108-eeeebe838be1?w=1600&q=80", ticketLink: "#" },
-  { date: "MAY 17", venue: "Garden Sessions · Abbey Gardens (BE)", image: "https://images.unsplash.com/photo-1766939228800-930ab56f16f9?w=1600&q=80", ticketLink: "#" },
-  { date: "MAY 23", venue: "Urban Pulse Festival · West Gardens · Metro City", image: "https://images.unsplash.com/photo-1766939228746-c0acc10344e4?w=1600&q=80", ticketLink: "#" },
-  { date: "JUN 06", venue: "Open Mind Festival · Riverside City", image: "https://images.unsplash.com/photo-1766939229108-eeeebe838be1?w=1600&q=80", ticketLink: "#" },
-  { date: "JUN 25", venue: "Sky Festival · Airfield District (DE)", image: "https://images.unsplash.com/photo-1766939228800-930ab56f16f9?w=1600&q=80", ticketLink: "#" },
-  { date: "JUN 27", venue: "Beachside Events w/ Guest Artist · Beach Club 69 · Coastal Town", image: "https://images.unsplash.com/photo-1766939228746-c0acc10344e4?w=1600&q=80", ticketLink: "#" },
-  { date: "JUL 25", venue: "THE VELVET HOUR — All Day Long · Sunset Charlie · Beachfront", ticketLink: "#", image: "https://images.unsplash.com/photo-1766939229108-eeeebe838be1?w=1600&q=80" },
-  { date: "AUG 07", venue: "Harmony Festival · The Garden Resort · Coastal Region (HRV)", image: "https://images.unsplash.com/photo-1766939228800-930ab56f16f9?w=1600&q=80", ticketLink: "#" },
-  { date: "AUG 08", venue: "Frequency Festival · Metro City", image: "https://images.unsplash.com/photo-1766939228746-c0acc10344e4?w=1600&q=80", ticketLink: "#" },
+  { date: "APR 04", venue: "Echo Chamber · Northshore", image: "/__l5e/assets-v1/5b2a3229-abfa-4d66-a03e-f895d9da7f9d/Massimo_06_11_26_126.jpg", ticketLink: "#" },
+  { date: "APR 10", venue: "Nebula Sound · Industrial Quarter · Basel (CH)", image: "/__l5e/assets-v1/e2bfeba6-227f-4e64-8a3d-dc3689affb7c/Massimo_06_11_26_382.jpg", ticketLink: "#" },
+  { date: "APR 26", venue: "Spring Night w/ Guest Artist All Nighter · The Jewel Box · Metro City", image: "/__l5e/assets-v1/1b0c6778-16fc-4453-814a-397430f06cb1/Massimo_06_11_26_481.jpg", ticketLink: "#" },
+  { date: "MAY 17", venue: "Garden Sessions · Abbey Gardens (BE)", image: "/__l5e/assets-v1/5b2a3229-abfa-4d66-a03e-f895d9da7f9d/Massimo_06_11_26_126.jpg", ticketLink: "#" },
+  { date: "MAY 23", venue: "Urban Pulse Festival · West Gardens · Metro City", image: "/__l5e/assets-v1/e2bfeba6-227f-4e64-8a3d-dc3689affb7c/Massimo_06_11_26_382.jpg", ticketLink: "#" },
+  { date: "JUN 06", venue: "Open Mind Festival · Riverside City", image: "/__l5e/assets-v1/1b0c6778-16fc-4453-814a-397430f06cb1/Massimo_06_11_26_481.jpg", ticketLink: "#" },
+  { date: "JUN 25", venue: "Sky Festival · Airfield District (DE)", image: "/__l5e/assets-v1/5b2a3229-abfa-4d66-a03e-f895d9da7f9d/Massimo_06_11_26_126.jpg", ticketLink: "#" },
+  { date: "JUN 27", venue: "Beachside Events w/ Guest Artist · Beach Club 69 · Coastal Town", image: "/__l5e/assets-v1/e2bfeba6-227f-4e64-8a3d-dc3689affb7c/Massimo_06_11_26_382.jpg", ticketLink: "#" },
+  { date: "JUL 25", venue: "THE VELVET HOUR — All Day Long · Sunset Charlie · Beachfront", ticketLink: "#", image: "/__l5e/assets-v1/1b0c6778-16fc-4453-814a-397430f06cb1/Massimo_06_11_26_481.jpg" },
+  { date: "AUG 07", venue: "Harmony Festival · The Garden Resort · Coastal Region (HRV)", image: "/__l5e/assets-v1/5b2a3229-abfa-4d66-a03e-f895d9da7f9d/Massimo_06_11_26_126.jpg", ticketLink: "#" },
+  { date: "AUG 08", venue: "Frequency Festival · Metro City", image: "/__l5e/assets-v1/e2bfeba6-227f-4e64-8a3d-dc3689affb7c/Massimo_06_11_26_382.jpg", ticketLink: "#" },
 ];
 
 export const recordings = [
