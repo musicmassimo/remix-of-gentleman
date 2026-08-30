@@ -7,7 +7,7 @@ interface CenterTextProps extends React.HTMLAttributes<HTMLDivElement> {
   visible?: boolean
 }
 
-const TYPING_SPEED_MS = 70
+const TYPING_SPEED_MS = 135
 
 const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
   ({ className, leftText, rightText, visible = false, ...props }, ref) => {
@@ -69,6 +69,7 @@ const CenterText = React.forwardRef<HTMLDivElement, CenterTextProps>(
           <span
             className={cn(
               "whitespace-nowrap transition-opacity duration-700 ease-out delay-100",
+              "[text-shadow:0_1px_4px_rgba(0,0,0,0.35)]",
               visible ? "opacity-100" : "opacity-0"
             )}
             aria-label={rightText}

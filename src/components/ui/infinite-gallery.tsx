@@ -14,6 +14,9 @@ interface InfiniteGalleryProps extends React.HTMLAttributes<HTMLDivElement> {
   enabled?: boolean
 }
 
+// How long each image stays centered before easing to the next (random) one.
+const AUTO_ADVANCE_MS = 4000
+
 function calculateWidth(item: MediaItem, viewportHeight: number): number {
   return (viewportHeight * item.width) / item.height
 }
@@ -25,6 +28,13 @@ const InfiniteGallery = React.forwardRef<HTMLDivElement, InfiniteGalleryProps>(
       typeof window !== "undefined" ? window.innerHeight : 800
     )
     const [currentIndex, setCurrentIndex] = React.useState(0)
+
+    // Mirror of currentIndex for use inside interval callbacks without
+    // re-subscribing the auto-advance timer on every scroll update.
+    const currentIndexRef = React.useRef(currentIndex)
+    React.useEffect(() => {
+      currentIndexRef.current = currentIndex
+    }, [currentIndex])
 
     // Calculate widths for all items
     const itemWidths = React.useMemo(
@@ -100,6 +110,42 @@ const InfiniteGallery = React.forwardRef<HTMLDivElement, InfiniteGalleryProps>(
       handleScroll()
       return () => container.removeEventListener("scroll", handleScroll)
     }, [setWidth, enabled, repeatCount, itemPositions])
+
+    // Auto-advance: every AUTO_ADVANCE_MS, ease to a randomly chosen image
+    // (never the same one twice in a row) using the same native smooth scroll
+    // as manual navigation. Selection is random rather than sequential.
+    React.useEffect(() => {
+      const container = scrollRef.current
+      if (!container || !enabled) return
+      if (items.length <= 1 || setWidth <= 0) return
+
+      const prefersReducedMotion =
+        typeof window !== "undefined" &&
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      if (prefersReducedMotion) return
+
+      const intervalId = window.setInterval(() => {
+        const prevIndex = currentIndexRef.current
+
+        // Pick a random target distinct from the current image
+        let target = Math.floor(Math.random() * items.length)
+        if (target === prevIndex) target = (target + 1) % items.length
+
+        // Center the nearest repeated copy of the target image
+        const centerOfTarget = itemPositions[target] + itemWidths[target] / 2
+        const viewportHalf = window.innerWidth / 2
+        const currentCenter = container.scrollLeft + viewportHalf
+        const setOffset = Math.round((currentCenter - centerOfTarget) / setWidth)
+        const targetCenter = centerOfTarget + setOffset * setWidth
+
+        container.scrollTo({ left: targetCenter - viewportHalf, behavior: "smooth" })
+        currentIndexRef.current = target
+        setCurrentIndex(target)
+      }, AUTO_ADVANCE_MS)
+
+      return () => window.clearInterval(intervalId)
+    }, [enabled, items.length, itemPositions, itemWidths, setWidth])
 
     // Generate repeated items
     const repeatedItems = React.useMemo(() => {
