@@ -21,8 +21,11 @@ const socials = [
     value: "@massimo.paparello",
     href: "https://tiktok.com/@massimo.paparello",
   },
-  // No public URL supplied for the Facebook page, so this stays plain text.
-  { label: "Facebook", value: "Massimo Trumpet Studio" },
+  {
+    label: "Facebook",
+    value: "Massimo Trumpet Studio",
+    href: "https://www.facebook.com/profile.php?id=61590589289425",
+  },
 ];
 
 const serviceAreas = [

@@ -259,12 +259,40 @@ describe("Teaching — Contact", () => {
     expect(
       screen.getByText("@massimo.paparello").closest("a")
     ).toHaveAttribute("href", "https://tiktok.com/@massimo.paparello");
-    expect(
-      screen.getAllByText("Massimo Trumpet Studio")[0].closest("a")
-    ).toHaveAttribute(
+    // YouTube and Facebook share the same display text, so they're
+    // distinguished by their row label.
+    const rowLink = (label: string) => {
+      const row = screen
+        .getAllByText(label)
+        .map((el) => el.closest(".tg-row"))
+        .find(Boolean)!;
+      return within(row as HTMLElement).getByRole("link");
+    };
+
+    expect(rowLink("YouTube")).toHaveAttribute(
       "href",
       "https://www.youtube.com/channel/UCExmNqfwVrOhwgYC63UrKC"
     );
+    expect(rowLink("Facebook")).toHaveAttribute(
+      "href",
+      "https://www.facebook.com/profile.php?id=61590589289425"
+    );
+  });
+
+  it("opens every external social link safely in a new tab", () => {
+    const { container } = renderAt("/teaching/contact");
+    const external = Array.from(
+      container.querySelectorAll<HTMLAnchorElement>('.tg-row a[href^="http"]')
+    );
+    expect(external).toHaveLength(4); // Instagram, YouTube, TikTok, Facebook
+    for (const a of external) {
+      expect(a).toHaveAttribute("target", "_blank");
+      expect(a).toHaveAttribute("rel", "noopener noreferrer");
+      expect(a).toHaveClass("tg-link");
+    }
+    // The mailto link should not get target/rel.
+    const mail = container.querySelector('a[href^="mailto:"]')!;
+    expect(mail).not.toHaveAttribute("target");
   });
 
   it("publishes no phone number or street address", () => {
