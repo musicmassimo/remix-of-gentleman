@@ -183,4 +183,16 @@ describe("SYNDICATE stencil header", () => {
     // Blend must not escape the section and tint the page behind it.
     expect(css).toMatch(/\.syn-hero\s*\{[^}]*isolation:\s*isolate/);
   });
+
+  it("biases the crop upward so the players' heads aren't clipped", () => {
+    const { container } = renderPage();
+    const css = container.querySelector("style")!.textContent!;
+    // The band sits ~39% down the photo; a centred crop clips their heads on
+    // wide screens, so the visible window is biased above centre.
+    const m = css.match(/\.syn-hero-img\s*\{[^}]*object-position:\s*center\s+(\d+)%/);
+    expect(m).not.toBeNull();
+    const y = Number(m![1]);
+    expect(y).toBeGreaterThanOrEqual(25); // lower would cut the players off at the bottom
+    expect(y).toBeLessThan(50); // 50% is the default that clipped the heads
+  });
 });

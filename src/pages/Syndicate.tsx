@@ -72,6 +72,12 @@ const synCss = `
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* The hero is short and full-width, so object-fit: cover keeps only a narrow
+       horizontal band of this 3:2 photo. The band on stage sits ~39% down
+       the frame, so a centred crop clips their heads at the top edge on wide
+       screens. Biasing to 35% centres the crop on the players; going further
+       (e.g. 20%) overshoots into the canopy and cuts them off at the bottom. */
+    object-position: center 35%;
     z-index: 0;
   }
   .syn-hero-plate {
