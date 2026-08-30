@@ -73,8 +73,8 @@ describe("SYNDICATE page", () => {
     const players = Array.from(container.querySelectorAll("audio"));
     expect(players).toHaveLength(2);
     expect(players.map((a) => a.getAttribute("src"))).toEqual([
-      "/audio/rosebush.mp3",
-      "/audio/pai.mp3",
+      "/audio/rosebush.m4a",
+      "/audio/pai.m4a",
     ]);
     for (const a of players) {
       expect(a).toHaveAttribute("preload", "none");

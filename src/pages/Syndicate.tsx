@@ -11,8 +11,8 @@ const lineup = [
 ];
 
 const tracks = [
-  { title: "Rosebush", credit: "Massimo Paparello", src: "/audio/rosebush.mp3" },
-  { title: "PAI", credit: "Sam Smylie", src: "/audio/pai.mp3" },
+  { title: "Rosebush", credit: "Massimo Paparello", src: "/audio/rosebush.m4a" },
+  { title: "PAI", credit: "Sam Smylie", src: "/audio/pai.m4a" },
 ];
 
 // youtu.be/M0e5tfIwKMU with the ?t=371 timestamp preserved as ?start=
@@ -332,8 +332,8 @@ const Syndicate = () => {
               <span>{t.title}</span>
               <span style={{ color: "rgba(255,255,255,0.45)" }}>{t.credit}</span>
             </div>
-            {/* preload="none": these files are 16–22 MB, so nothing is
-                fetched until a visitor actually presses play. */}
+            {/* AAC at ~160 kbps. preload="none" so nothing is fetched
+                until a visitor actually presses play. */}
             <audio
               className="syn-audio"
               controls
