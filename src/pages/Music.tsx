@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import TopNav from "@/components/TopNav";
+import coverAsset from "@/assets/massimo-trumpet-music.jpg.asset.json";
 
-const coverImage = "https://images.unsplash.com/photo-1766939228554-77d3c914639a?w=1600&q=80";
+const coverImage = coverAsset.url;
+
 
 const Music = () => (
   <main className="h-dvh w-dvw relative bg-black overflow-hidden" style={{ fontFamily: "'Space Grotesk', monospace" }}>
