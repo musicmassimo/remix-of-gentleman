@@ -104,6 +104,20 @@ const synCss = `
     color: #fff;
   }
 
+  /* Mobile. The hero is capped at 220px, so the photo overflows it by only
+     ~30px and object-position has almost no travel: sweeping it 0%-35% moves
+     the revealed slice just 47.5%->51.7%, never reaching the players at 39%.
+     What actually pushes them out of frame is the 64px top padding, which
+     drops the letterforms into the lower half of the plate. Zeroing it
+     re-centres them, and object-position: center top then lines the crop up
+     with the band. The smaller type also stops the nowrap word overflowing
+     a 375px viewport. */
+  @media (max-width: 767px) {
+    .syn-hero-plate { padding-top: 0; }
+    .syn-hero-title { font-size: clamp(34px, 13vw, 56px); }
+    .syn-hero-img { object-position: center top; }
+  }
+
   .syn-heading {
     font-size: 10px;
     letter-spacing: 0.3em;

@@ -195,4 +195,20 @@ describe("SYNDICATE stencil header", () => {
     expect(y).toBeGreaterThanOrEqual(25); // lower would cut the players off at the bottom
     expect(y).toBeLessThan(50); // 50% is the default that clipped the heads
   });
+
+  it("re-frames the crop for narrow viewports", () => {
+    const { container } = renderPage();
+    const css = container.querySelector("style")!.textContent!;
+
+    const mq = css.match(/@media\s*\(max-width:\s*767px\)\s*\{([\s\S]*?)\n  \}/);
+    expect(mq).not.toBeNull();
+    const block = mq![1];
+
+    // The 64px top padding is what pushed the letterforms below the players;
+    // object-position alone has too little travel on a 220px hero to fix it.
+    expect(block).toMatch(/\.syn-hero-plate\s*\{[^}]*padding-top:\s*0/);
+    expect(block).toMatch(/\.syn-hero-img\s*\{[^}]*object-position:\s*center\s+top/);
+    // Smaller type so the nowrap word stops overflowing a 375px viewport.
+    expect(block).toMatch(/\.syn-hero-title\s*\{[^}]*font-size:\s*clamp\(/);
+  });
 });
