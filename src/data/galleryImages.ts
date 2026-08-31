@@ -10,7 +10,7 @@ export interface MediaItem {
 
 export const galleryImages: MediaItem[] = [
   {
-    src: "/images/massimo-01.jpg",
+    src: "/images/massimo-06.jpg",
     width: 4,
     height: 5,
     alt: "Massimo Paparello",
@@ -40,7 +40,7 @@ export const galleryImages: MediaItem[] = [
     alt: "Massimo Paparello",
   },
   {
-    src: "/images/massimo-06.jpg",
+    src: "/images/massimo-01.jpg",
     width: 4,
     height: 5,
     alt: "Massimo Paparello",
