@@ -21,14 +21,6 @@ const VideoDetail = lazy(() => import("./pages/VideoDetail"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 
-// Teaching is a nested mini-site: the layout renders the main nav, its own
-// sub-nav, and an <Outlet /> for whichever child route is active.
-const TeachingLayout = lazy(() => import("./pages/teaching/TeachingLayout"));
-const TeachingHome = lazy(() => import("./pages/teaching/TeachingHome"));
-const TeachingAbout = lazy(() => import("./pages/teaching/TeachingAbout"));
-const TeachingSignup = lazy(() => import("./pages/teaching/TeachingSignup"));
-const TeachingResources = lazy(() => import("./pages/teaching/TeachingResources"));
-const TeachingContact = lazy(() => import("./pages/teaching/TeachingContact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -56,13 +48,6 @@ const App = () => (
             <Route path="/gallery/videos" element={<Videos />} />
             <Route path="/videos/:id" element={<VideoDetail />} />
             <Route path="/about" element={<About />} />
-            <Route path="/teaching" element={<TeachingLayout />}>
-              <Route index element={<TeachingHome />} />
-              <Route path="about" element={<TeachingAbout />} />
-              <Route path="signup" element={<TeachingSignup />} />
-              <Route path="resources" element={<TeachingResources />} />
-              <Route path="contact" element={<TeachingContact />} />
-            </Route>
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

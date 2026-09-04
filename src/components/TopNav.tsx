@@ -33,7 +33,6 @@ const navItems: NavEntry[] = [
     ],
   },
   { label: "SHOWS", to: "/tour" },
-  { label: "TEACHING", to: "/teaching" },
   { label: "CONTACT", to: "/contact" },
 ];
 

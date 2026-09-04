@@ -29,7 +29,6 @@ describe("TopNav — structure", () => {
       "MUSIC",
       "GALLERY",
       "SHOWS",
-      "TEACHING",
       "CONTACT",
     ]) {
       expect(bar.getByText(label)).toBeInTheDocument();
@@ -122,7 +121,6 @@ describe("TopNav — mobile hamburger", () => {
 
     await user.click(mobile.getByRole("button", { name: "Open menu" }));
     expect(mobile.getByText("HOME")).toBeInTheDocument();
-    expect(mobile.getByText("TEACHING")).toBeInTheDocument();
   });
 
   it("expands a nested section in place", async () => {
