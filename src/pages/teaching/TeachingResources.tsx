@@ -15,14 +15,45 @@ const instruments = [
   { value: "7", label: "Voice" },
 ];
 
+const whatsInside = [
+  {
+    title: "For Beginners",
+    desc: "Foundational tone and rhythm work that builds good habits from day one.",
+  },
+  {
+    title: "For School Band",
+    desc: "Range and endurance patterns that translate directly to chair placements.",
+  },
+  {
+    title: "For Jazz Players",
+    desc: "Flexibility and articulation drills that carry into phrasing and improvisation.",
+  },
+  {
+    title: "For Advanced Players",
+    desc: "A structure disciplined enough to support audition and performance prep.",
+  },
+];
+
 const TeachingResources = () => (
   <section style={{ ...tg.section, paddingBottom: 100 }}>
     <p className="tg-heading">Trumpet Studio</p>
-    <h1 className="tg-title">Resources</h1>
-    <p style={{ ...tg.body, marginBottom: 40 }}>
-      Sign up below for access to practice guides, recommended gear lists, and
-      other resources for trumpet students.
+    <h1 className="tg-title">The Daily Practice Routine & Pattern Library</h1>
+    <p style={{ ...tg.body, marginBottom: 20 }}>
+      Two free guides — the exact daily structure and the technical patterns
+      that fill it — built from training at the New England Conservatory and
+      years of touring and teaching. A routine without patterns is just a
+      warm-up; patterns without a routine never get practiced. Sign up below
+      for both.
     </p>
+
+    <div className="tg-items" style={{ marginBottom: 40 }}>
+      {whatsInside.map(({ title, desc }) => (
+        <div key={title}>
+          <p className="tg-item-title">{title}</p>
+          <p style={tg.body}>{desc}</p>
+        </div>
+      ))}
+    </div>
 
     <form method="POST" action={BREVO_ACTION}>
       <div className="tg-form-grid">
@@ -70,7 +101,7 @@ const TeachingResources = () => (
       <input type="hidden" name="html_type" value="simple" />
 
       <button type="submit" className="tg-btn" style={{ marginTop: 32 }}>
-        Access Resources
+        Send Me the Guides
       </button>
     </form>
   </section>

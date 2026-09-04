@@ -93,6 +93,27 @@ const TeachingContact = () => (
     <hr className="tg-rule" />
 
     <section style={tg.section}>
+      <p className="tg-heading">Before You Book</p>
+      <p style={tg.note}>
+        Please include the student's age, experience level, lesson goals, and
+        location if you are asking about travel lessons.
+      </p>
+    </section>
+
+    <hr className="tg-rule" />
+
+    <section style={tg.section}>
+      <p className="tg-heading">Payment</p>
+      <p style={tg.note}>
+        Payments may be made through Zelle, Venmo, or cash for in-person
+        lessons. Payment is due at the lesson or in advance for monthly
+        blocks.
+      </p>
+    </section>
+
+    <hr className="tg-rule" />
+
+    <section style={tg.section}>
       <p className="tg-heading">Service Areas</p>
       <p style={{ ...tg.note, marginBottom: 28 }}>In-person lessons only.</p>
 

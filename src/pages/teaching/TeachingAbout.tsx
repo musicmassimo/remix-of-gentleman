@@ -19,11 +19,46 @@ const studentsLearn = [
   "Musical confidence",
 ];
 
+const coreValues = [
+  {
+    title: "Practical Musicianship",
+    desc: "He teaches skills students can apply in rehearsals, performances, auditions, recording sessions, and real musical situations.",
+  },
+  {
+    title: "Individualized Instruction",
+    desc: "Every lesson is built around the student's experience level, goals, strengths, and areas for growth.",
+  },
+  {
+    title: "Long-Term Development",
+    desc: "He is focused on building lasting habits and strong fundamentals that support continued progress over time.",
+  },
+  {
+    title: "Performance-Based Learning",
+    desc: "His teaching draws from professional experience in live performance, touring, arranging, recording, and ensemble leadership.",
+  },
+  {
+    title: "Consistency & Accountability",
+    desc: "Students receive clear guidance, structured practice goals, and ongoing feedback that supports measurable improvement.",
+  },
+  {
+    title: "Musical Independence",
+    desc: "He helps students become confident readers, listeners, improvisers, and performers who can solve musical challenges on their own.",
+  },
+];
+
 const TeachingAbout = () => (
   <>
     <section style={tg.section}>
       <p className="tg-heading">Trumpet Studio</p>
       <h1 className="tg-title">About</h1>
+      <p style={{ ...tg.body, marginBottom: 20 }}>
+        Personalized trumpet instruction built on professional performance
+        experience, practical musicianship, and long-term student growth.
+        Trumpet lessons should do more than teach notes and exercises — the
+        goal is to help students become confident, capable musicians who can
+        read, perform, improvise, and continue developing long after a lesson
+        ends.
+      </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
         {bio.map((paragraph, i) => (
           <p key={i} style={tg.body}>
@@ -35,13 +70,27 @@ const TeachingAbout = () => (
 
     <hr className="tg-rule" />
 
-    <section style={{ ...tg.section, paddingBottom: 100 }}>
+    <section style={tg.section}>
       <p className="tg-heading">What Students Learn</p>
       <ul className="tg-list">
         {studentsLearn.map((item) => (
           <li key={item}>{item}</li>
         ))}
       </ul>
+    </section>
+
+    <hr className="tg-rule" />
+
+    <section style={{ ...tg.section, paddingBottom: 100 }}>
+      <p className="tg-heading">Core Values</p>
+      <div className="tg-items">
+        {coreValues.map(({ title, desc }) => (
+          <div key={title}>
+            <p className="tg-item-title">{title}</p>
+            <p style={tg.body}>{desc}</p>
+          </div>
+        ))}
+      </div>
     </section>
   </>
 );

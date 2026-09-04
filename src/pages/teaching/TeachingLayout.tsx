@@ -116,6 +116,48 @@ const tgCss = `
   }
   .tg-link:hover { opacity: 0.75; }
 
+  /* Title + description entries (lesson categories, core values). */
+  .tg-items {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+  .tg-item-title {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: #e8c87a;
+    margin: 0 0 6px;
+    font-weight: 500;
+  }
+
+  /* FAQ accordion, native <details> so no JS is needed. */
+  .tg-faq details {
+    border-bottom: 1px solid rgba(217,169,76,0.18);
+    padding: 16px 0;
+  }
+  .tg-faq details:first-of-type { border-top: 1px solid rgba(217,169,76,0.18); }
+  .tg-faq summary {
+    cursor: pointer;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    color: #fff;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .tg-faq summary::-webkit-details-marker { display: none; }
+  .tg-faq summary::after {
+    content: "+";
+    flex: none;
+    color: #d9a94c;
+    font-size: 16px;
+  }
+  .tg-faq details[open] summary::after { content: "\\2212"; }
+  .tg-faq summary:hover { color: #e8c87a; }
+  .tg-faq p { margin: 12px 0 0; }
+
   /* Bulleted lists with a gold marker. */
   .tg-list {
     display: grid;
