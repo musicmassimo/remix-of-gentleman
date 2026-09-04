@@ -56,13 +56,6 @@ const App = () => (
             <Route path="/gallery/videos" element={<Videos />} />
             <Route path="/videos/:id" element={<VideoDetail />} />
             <Route path="/about" element={<About />} />
-            <Route path="/teaching" element={<TeachingLayout />}>
-              <Route index element={<TeachingHome />} />
-              <Route path="about" element={<TeachingAbout />} />
-              <Route path="signup" element={<TeachingSignup />} />
-              <Route path="resources" element={<TeachingResources />} />
-              <Route path="contact" element={<TeachingContact />} />
-            </Route>
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
