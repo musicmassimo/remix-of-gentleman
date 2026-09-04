@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { tg } from "./styles";
+import heroAsset from "@/assets/massimo-hero.jpg.asset.json";
+
+const heroImg = heroAsset.url;
 
 const lessonTypes = [
   {
@@ -53,20 +56,38 @@ const faqs = [
 
 const TeachingHome = () => (
   <>
-    <section style={tg.section}>
-      <p className="tg-heading">Trumpet Studio</p>
-      <h1 className="tg-title">
-        Get Professional Trumpet Lessons in South Bay and the Greater Los
-        Angeles Area
-      </h1>
-      <p style={tg.body}>
-        He helps middle school, high school, and adult players improve tone,
-        reading, range, improvisation, and practice habits through structured
-        private instruction.
-      </p>
-    </section>
-
-    <hr className="tg-rule" />
+    {/* Hero — dark charcoal photo banner with the headline overlaid in
+        white, matching the live site's hero exactly (rgb(36,41,46) bg,
+        white Lora H1). */}
+    <div className="tg-hero">
+      <img
+        className="tg-hero-img"
+        src={heroImg}
+        alt="Massimo Paparello"
+        loading="eager"
+        decoding="async"
+      />
+      <div className="tg-hero-content">
+        <p className="tg-heading" style={{ color: "#e4c578" }}>Trumpet Studio</p>
+        <h1 className="tg-title tg-title--on-dark" style={{ marginBottom: 20 }}>
+          Get Professional Trumpet Lessons in South Bay and the Greater Los
+          Angeles Area
+        </h1>
+        <p style={{ ...tg.body, color: "rgba(255,255,255,0.85)", marginBottom: 24 }}>
+          He helps middle school, high school, and adult players improve
+          tone, reading, range, improvisation, and practice habits through
+          structured private instruction.
+        </p>
+        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+          <a className="tg-btn" href="tel:+13105292642">
+            Call Now
+          </a>
+          <Link className="tg-btn-outline tg-btn-outline--on-dark" to="/teaching/resources">
+            Sign Up for the Practice Guide
+          </Link>
+        </div>
+      </div>
+    </div>
 
     <section style={tg.section}>
       <p className="tg-heading">Learn From a Performer Who Teaches With Structure</p>
@@ -80,7 +101,7 @@ const TeachingHome = () => (
 
     <hr className="tg-rule" />
 
-    <section style={tg.section}>
+    <section className="tg-alt" style={{ ...tg.section, paddingTop: 48, paddingBottom: 48 }}>
       <p className="tg-heading">Train With Purpose</p>
       <p style={{ ...tg.body, marginBottom: 32 }}>
         From first notes to advanced improvisation, each lesson is built
@@ -111,9 +132,17 @@ const TeachingHome = () => (
       </div>
     </section>
 
-    <section style={{ ...tg.section, paddingBottom: 100 }}>
+    <section style={{ ...tg.section, paddingBottom: 100, textAlign: "center" }}>
+      <p className="tg-heading">Start Playing With More Confidence</p>
+      <p style={{ ...tg.body, marginBottom: 28, maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}>
+        If your student needs school band support or you're an adult ready to
+        play with more confidence, Massimo Trumpet Studio offers trumpet
+        lessons in South Bay and the Greater Los Angeles Area, with a clear
+        plan built on musical fundamentals, creativity, and performance
+        skills that carry into real playing situations.
+      </p>
       <Link className="tg-btn" to="/teaching/signup">
-        Sign Up
+        Connect With Him
       </Link>
     </section>
   </>

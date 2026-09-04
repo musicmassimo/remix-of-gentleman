@@ -76,7 +76,7 @@ const TeachingContact = () => (
                 {value}
               </a>
             ) : (
-              <span style={{ color: "rgba(255,255,255,0.9)" }}>{value}</span>
+              <span style={{ color: "rgba(23,23,23,0.9)" }}>{value}</span>
             )}
           </div>
         ))}
@@ -122,10 +122,10 @@ const TeachingContact = () => (
           <div key={region}>
             <p
               style={{
-                fontSize: 11,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "#e8c87a",
+                fontFamily: "'Lora', serif",
+                fontSize: 16,
+                fontWeight: 600,
+                color: "#856c1b",
                 marginBottom: 12,
               }}
             >

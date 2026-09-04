@@ -142,7 +142,7 @@ const TeachingSignup = () => {
               />
               <span
                 id="location-help"
-                style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.03em" }}
+                style={{ fontSize: 11, color: "rgba(23,23,23,0.4)", letterSpacing: "0.03em" }}
               >
                 Used for travel lesson scheduling.
               </span>
