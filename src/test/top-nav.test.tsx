@@ -29,7 +29,7 @@ describe("TopNav — structure", () => {
       "MUSIC",
       "GALLERY",
       "SHOWS",
-      "CONTACT",
+      "INQUIRIES",
     ]) {
       expect(bar.getByText(label)).toBeInTheDocument();
     }
@@ -43,26 +43,21 @@ describe("TopNav — structure", () => {
     );
   });
 
+  it("points MUSIC at the existing /music route", () => {
+    renderNav();
+    expect(within(desktopNav()).getByText("MUSIC").closest("a")).toHaveAttribute(
+      "href",
+      "/music"
+    );
+  });
+
   it("keeps dropdown children hidden until opened", () => {
     renderNav();
-    expect(within(desktopNav()).queryByText("SYNDICATE")).toBeNull();
     expect(within(desktopNav()).queryByText("PHOTOS")).toBeNull();
   });
 });
 
 describe("TopNav — desktop dropdowns", () => {
-  it("opens MUSIC on hover and links SYNDICATE to /music/syndicate", async () => {
-    const user = userEvent.setup();
-    renderNav();
-    const bar = within(desktopNav());
-
-    await user.hover(bar.getByText("MUSIC"));
-
-    const syndicate = bar.getByText("SYNDICATE");
-    expect(syndicate).toBeInTheDocument();
-    expect(syndicate.closest("a")).toHaveAttribute("href", "/music/syndicate");
-  });
-
   it("opens GALLERY on click with both PHOTOS and VIDEOS", async () => {
     const user = userEvent.setup();
     renderNav();

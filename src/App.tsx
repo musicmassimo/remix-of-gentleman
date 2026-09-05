@@ -14,12 +14,11 @@ import Index from "./pages/Index";
 const Calendar = lazy(() => import("./pages/Calendar"));
 const Music = lazy(() => import("./pages/Music"));
 const AlbumDetail = lazy(() => import("./pages/AlbumDetail"));
-const Syndicate = lazy(() => import("./pages/Syndicate"));
 const GalleryPhotos = lazy(() => import("./pages/GalleryPhotos"));
 const Videos = lazy(() => import("./pages/Videos"));
 const VideoDetail = lazy(() => import("./pages/VideoDetail"));
 const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
+const Inquiries = lazy(() => import("./pages/Inquiries"));
 
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -43,12 +42,11 @@ const App = () => (
             <Route path="/tour" element={<Calendar />} />
             <Route path="/music" element={<Music />} />
             <Route path="/music/lucid-architecture" element={<AlbumDetail />} />
-            <Route path="/music/syndicate" element={<Syndicate />} />
             <Route path="/gallery/photos" element={<GalleryPhotos />} />
             <Route path="/gallery/videos" element={<Videos />} />
             <Route path="/videos/:id" element={<VideoDetail />} />
             <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/inquiries" element={<Inquiries />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

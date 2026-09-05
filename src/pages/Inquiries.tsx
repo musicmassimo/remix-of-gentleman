@@ -72,7 +72,7 @@ const rowCss = `
   }
 `;
 
-const Contact = () => {
+const Inquiries = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
@@ -96,7 +96,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Contact rows */}
+      {/* Inquiries rows */}
       <section style={{ padding: "0 24px 80px", maxWidth: 800, margin: "0 auto" }}>
         <p style={{ ...s.label, marginBottom: 32 }}>Booking & Management</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -171,4 +171,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Inquiries;

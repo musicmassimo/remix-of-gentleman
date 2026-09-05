@@ -21,10 +21,7 @@ const isGroup = (entry: NavEntry): entry is NavGroup => "children" in entry;
 const navItems: NavEntry[] = [
   { label: "HOME", to: "/" },
   { label: "ABOUT", to: "/about" },
-  {
-    label: "MUSIC",
-    children: [{ label: "SYNDICATE", to: "/music/syndicate" }],
-  },
+  { label: "MUSIC", to: "/music" },
   {
     label: "GALLERY",
     children: [
@@ -33,7 +30,7 @@ const navItems: NavEntry[] = [
     ],
   },
   { label: "SHOWS", to: "/tour" },
-  { label: "CONTACT", to: "/contact" },
+  { label: "INQUIRIES", to: "/inquiries" },
 ];
 
 const linkFont = {
