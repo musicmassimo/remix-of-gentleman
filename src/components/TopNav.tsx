@@ -5,6 +5,10 @@ import { Menu, X, ChevronDown } from "lucide-react";
 interface NavLeaf {
   label: string;
   to: string;
+  /** True for a link that must leave the SPA (e.g. a separate site living in
+   *  a subfolder on the same domain) rather than being handled by the
+   *  client-side router. */
+  external?: boolean;
 }
 
 interface NavGroup {
@@ -21,6 +25,9 @@ const isGroup = (entry: NavEntry): entry is NavGroup => "children" in entry;
 const navItems: NavEntry[] = [
   { label: "HOME", to: "/" },
   { label: "ABOUT", to: "/about" },
+  // Teaching lives in a separate WordPress install in a /teaching subfolder
+  // on the same domain — a real page load, not a client-side route.
+  { label: "TEACHING", to: "/teaching", external: true },
   { label: "MUSIC", to: "/music" },
   {
     label: "GALLERY",
@@ -29,7 +36,7 @@ const navItems: NavEntry[] = [
       { label: "VIDEOS", to: "/gallery/videos" },
     ],
   },
-  { label: "SHOWS", to: "/tour" },
+  { label: "LIVE", to: "/tour" },
   { label: "INQUIRIES", to: "/inquiries" },
 ];
 
@@ -135,16 +142,26 @@ const TopNav = () => {
           const active = isEntryActive(entry);
 
           if (!isGroup(entry)) {
-            return (
+            const linkStyle = {
+              ...linkFont,
+              color: active ? ACTIVE : INACTIVE,
+              lineHeight: "44px",
+            };
+            return entry.external ? (
+              <a
+                key={entry.to}
+                href={entry.to}
+                className="transition-opacity hover:opacity-80 px-2 lg:px-3"
+                style={linkStyle}
+              >
+                {entry.label}
+              </a>
+            ) : (
               <Link
                 key={entry.to}
                 to={entry.to}
                 className="transition-opacity hover:opacity-80 px-2 lg:px-3"
-                style={{
-                  ...linkFont,
-                  color: active ? ACTIVE : INACTIVE,
-                  lineHeight: "44px",
-                }}
+                style={linkStyle}
               >
                 {entry.label}
               </Link>
@@ -253,18 +270,28 @@ const TopNav = () => {
               const divider = i === 0 ? undefined : ITEM_DIVIDER;
 
               if (!isGroup(entry)) {
-                return (
+                const itemStyle = {
+                  ...linkFont,
+                  color: isEntryActive(entry) ? ACTIVE : INACTIVE,
+                  padding: "14px 20px",
+                  borderTop: divider,
+                };
+                return entry.external ? (
+                  <a
+                    key={entry.to}
+                    href={entry.to}
+                    className="transition-opacity hover:opacity-80"
+                    style={itemStyle}
+                  >
+                    {entry.label}
+                  </a>
+                ) : (
                   <Link
                     key={entry.to}
                     to={entry.to}
                     onClick={() => setMobileOpen(false)}
                     className="transition-opacity hover:opacity-80"
-                    style={{
-                      ...linkFont,
-                      color: isEntryActive(entry) ? ACTIVE : INACTIVE,
-                      padding: "14px 20px",
-                      borderTop: divider,
-                    }}
+                    style={itemStyle}
                   >
                     {entry.label}
                   </Link>

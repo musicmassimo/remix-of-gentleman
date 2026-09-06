@@ -26,20 +26,29 @@ describe("TopNav — structure", () => {
     for (const label of [
       "HOME",
       "ABOUT",
+      "TEACHING",
       "MUSIC",
       "GALLERY",
-      "SHOWS",
+      "LIVE",
       "INQUIRIES",
     ]) {
       expect(bar.getByText(label)).toBeInTheDocument();
     }
   });
 
-  it("points SHOWS at the existing /tour route", () => {
+  it("points LIVE at the existing /tour route", () => {
     renderNav();
-    expect(within(desktopNav()).getByText("SHOWS").closest("a")).toHaveAttribute(
+    expect(within(desktopNav()).getByText("LIVE").closest("a")).toHaveAttribute(
       "href",
       "/tour"
+    );
+  });
+
+  it("points TEACHING at /teaching", () => {
+    renderNav();
+    expect(within(desktopNav()).getByText("TEACHING").closest("a")).toHaveAttribute(
+      "href",
+      "/teaching"
     );
   });
 
