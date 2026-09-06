@@ -1,33 +1,16 @@
-import { useState } from "react";
 import TopNav from "@/components/TopNav";
 
 const contacts = [
-  { label: "General Bookings", value: "bookings@massimopaparello.com", href: "mailto:bookings@massimopaparello.com" },
-  { label: "Press & Media", value: "press@massimopaparello.com", href: "mailto:press@massimopaparello.com" },
-  { label: "The Velvet Hour", value: "events@thevelvethour.live", href: "mailto:events@thevelvethour.live" },
-  { label: "Based in", value: "Metro City" },
+  { label: "General, Bookings & Teaching", value: "massimo@massimopaparello.com", href: "mailto:massimo@massimopaparello.com" },
+  { label: "Syndicate Bookings", value: "syndicatebookings@massimopaparello.com", href: "mailto:syndicatebookings@massimopaparello.com" },
+  { label: "Based in", value: "Los Angeles, CA" },
 ];
 
 const socials = [
-  { label: "Instagram", handle: "@massimopaparello" },
-  { label: "YouTube", handle: "Massimo Paparello Music" },
-  { label: "Facebook", handle: "massimopaparello" },
-  { label: "Spotify", handle: "Massimo Paparello" },
-  { label: "Soundcloud", handle: "massimopaparello" },
-  { label: "Beatport", handle: "Massimo Paparello" },
-];
-
-const velvetSocials = [
-  { label: "Instagram", handle: "@thevelvethour" },
-  { label: "YouTube", handle: "The Velvet Hour" },
-  { label: "Facebook", handle: "thevelvethour" },
-];
-
-const faqs = [
-  { q: "What is your typical set length?", a: "Standard sets are 2 hours, but I love extended 4-6 hour sessions for the right event. Open-to-close sets are available for select venues." },
-  { q: "Do you play at private events?", a: "Yes, selectively. Please reach out to the booking email with details about your event, date, and vision." },
-  { q: "What are your technical requirements?", a: "A detailed tech rider is available upon request. Minimum requirements include a Pioneer CDJ-3000/DJM-V10 setup or equivalent." },
-  { q: "How can I submit a demo for The Velvet Hour?", a: "Send a private SoundCloud or Dropbox link to events@thevelvethour.live with 'Demo Submission' in the subject line." },
+  { label: "Instagram", handle: "@musicmassimo", href: "https://www.instagram.com/musicmassimo/" },
+  { label: "YouTube", handle: "@massimopaparello0213", href: "https://youtube.com/@massimopaparello0213" },
+  { label: "Facebook", handle: "orangefoot13", href: "https://www.facebook.com/orangefoot13/" },
+  { label: "Threads", handle: "@musicmassimo", href: "https://www.threads.com/@musicmassimo" },
 ];
 
 const s = {
@@ -73,8 +56,6 @@ const rowCss = `
 `;
 
 const Inquiries = () => {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   return (
     <main style={{ background: "#000", color: "#fff", fontFamily: "'Space Grotesk', monospace", minHeight: "100vh", overflowX: "hidden" }}>
       <style>{rowCss}</style>
@@ -113,51 +94,21 @@ const Inquiries = () => {
         </div>
       </section>
 
-      {/* Massimo Paparello socials */}
+      {/* Socials */}
       <section style={{ padding: "0 24px 80px", maxWidth: 800, margin: "0 auto", borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 60 }}>
         <p style={{ ...s.label, marginBottom: 32 }}>Follow Massimo Paparello</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {socials.map((item, i) => (
             <HoverRow key={i} className="cx-row">
               <span>{item.label}</span>
-              <span>{item.handle}</span>
-            </HoverRow>
-          ))}
-        </div>
-      </section>
-
-      {/* Velvet Hour socials */}
-      <section style={{ padding: "0 24px 80px", maxWidth: 800, margin: "0 auto", borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 60 }}>
-        <p style={{ ...s.label, marginBottom: 32 }}>Follow The Velvet Hour</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {velvetSocials.map((item, i) => (
-            <HoverRow key={i} className="cx-row">
-              <span>{item.label}</span>
-              <span>{item.handle}</span>
-            </HoverRow>
-          ))}
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section style={{ padding: "0 24px 100px", maxWidth: 800, margin: "0 auto", borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 60 }}>
-        <p style={{ ...s.label, marginBottom: 32 }}>Frequently Asked</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {faqs.map((faq, i) => (
-            <HoverRow
-              key={i}
-              style={{ cursor: "pointer" }}
-              onClick={() => setOpenFaq(openFaq === i ? null : i)}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span>{faq.q}</span>
-                <span style={{ color: "rgba(255,255,255,0.3)", marginLeft: 16 }}>{openFaq === i ? "−" : "+"}</span>
-              </div>
-              {openFaq === i && (
-                <p style={{ marginTop: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.8, textTransform: "none", letterSpacing: "0.05em", fontSize: 11 }}>
-                  {faq.a}
-                </p>
-              )}
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                {item.handle}
+              </a>
             </HoverRow>
           ))}
         </div>
